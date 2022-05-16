@@ -3,13 +3,22 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^0.27.2",
+    "lint": "^0.7.0",
     "ln-service": "^53.16.1",
     "next": "latest",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "swr": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "8.15.0",
+    "eslint-config-next": "12.1.6",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "^2.6.2"
   }
 }

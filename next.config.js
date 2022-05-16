@@ -1,7 +1,7 @@
 module.exports = {
   env: {
-    cert: process.env.CERT,
-    macaroon: process.env.MACAROON,
-    socket: process.env.SOCKET,
+    rpcUrl: process.env.RPC_URL,
+    rpcUser: process.env.RPC_USER,
+    rpcPassword: process.env.RPC_PASSWORD,
   },
-}
+};

@@ -1,5 +1,6 @@
 import useSWR from 'swr';
 import Utxo from '../components/Utxo';
+import Header from '../components/Header';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -11,12 +12,8 @@ export default function Create() {
 
   return (
     <>
-      <div>
-        LN-VORTEX
-        <br />
-        <br />
-        UTXOs:
-      </div>
+      <Header />
+      <div>UTXOs:</div>
       <ul>
         {utxoList.map((u, i) => (
           <Utxo key={i} utxo={u} />

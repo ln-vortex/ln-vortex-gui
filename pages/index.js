@@ -1,5 +1,6 @@
 import useSWR from 'swr';
 import Channel from '../components/Channel';
+import Header from '../components/Header';
 import Link from 'next/link';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -12,12 +13,8 @@ export default function Index() {
 
   return (
     <>
-      <div>
-        LN-VORTEX
-        <br />
-        <br />
-        Channels:
-      </div>
+      <Header />
+      <div>Channels:</div>
       <ul>
         {channelData.map((c, i) => (
           <Channel key={i} channel={c} />

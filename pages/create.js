@@ -53,7 +53,10 @@ export default function Create() {
         </thead>
         <tbody>
           {utxoList.map(({ outPoint, amount, address, confirmed }, index) => (
-            <tr key={index}>
+            <tr
+              key={index}
+              className={checkedState && checkedState[index] ? 'selected' : ''}
+            >
               <th scope="row">
                 <input
                   type="checkbox"

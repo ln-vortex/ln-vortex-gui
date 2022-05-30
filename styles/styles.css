@@ -34,3 +34,7 @@ input[type='checkbox']:focus {
 td {
   padding: 0 25px;
 }
+
+.selected {
+  background-color: rgba(159, 228, 252, 0.19);
+}

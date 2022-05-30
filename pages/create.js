@@ -5,7 +5,8 @@ import Header from '../components/Header';
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function Create() {
-  const { data: utxoList, error } = useSWR('/api/utxos', fetcher);
+  const { data: utxoList, error: utxoError } = useSWR('/api/utxos', fetcher);
+  const { data: status, error: statusError } = useSWR('/api/status', fetcher);
   const [checkedState, setCheckedState] = useState();
   const [satsSelected, setSatsSelected] = useState(0);
 
@@ -33,8 +34,8 @@ export default function Create() {
   const truncate = (input) =>
     input.length > 20 ? `${input.substring(0, 20)}...` : input;
 
-  if (error) return <div>Failed to load</div>;
-  if (!utxoList) return <div>Loading...</div>;
+  if (utxoError || statusError) return <div>Failed to load</div>;
+  if (!utxoList || !status) return <div>Loading...</div>;
 
   return (
     <>
@@ -77,7 +78,21 @@ export default function Create() {
           ))}
         </tbody>
       </table>
-      <div>{satsSelected} sats selected</div>
+      <br />
+      <div>
+        {status.round.amount + status.round.mixFee} sats required for Vortex
+        channel ({status.round.amount} sat channel + {status.round.mixFee} sat
+        fee)
+      </div>
+      <br />
+      {satsSelected >= status.round.amount + status.round.mixFee ? (
+        <div>{status.round.amount + status.round.mixFee} sats selected</div>
+      ) : (
+        <div>
+          {satsSelected} sats selected, need{' '}
+          {status.round.amount + status.round.mixFee - satsSelected} more
+        </div>
+      )}
     </>
   );
 }

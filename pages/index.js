@@ -14,7 +14,7 @@ export default function Index() {
   return (
     <>
       <Header />
-      <div>Channels:</div>
+      <h2>Channels</h2>
       <ul>
         {channelData.map((c, i) => (
           <Channel key={i} channel={c} />

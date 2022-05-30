@@ -49,7 +49,7 @@ export default function Create() {
   return (
     <>
       <Header />
-      <div>CHOOSE INPUTS</div>
+      <h2>CHOOSE INPUTS</h2>
       <table>
         <thead>
           <tr>
@@ -85,7 +85,9 @@ export default function Create() {
                 <div className="">{amount.toLocaleString()} sats</div>
               </td>
               <td>{truncate(address)}</td>
-              <td>{confirmed ? 'YES' : 'NO'}</td>
+              <td className={confirmed ? 'success' : 'danger'}>
+                {confirmed ? 'YES' : 'NO'}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -98,20 +100,25 @@ export default function Create() {
       </div>
       <br />
       {createChannelEnabled() ? (
-        <div>
-          {(status.round.amount + status.round.mixFee).toLocaleString()} sats
-          selected
-        </div>
+        <h2>
+          <u>{(status.round.amount + status.round.mixFee).toLocaleString()}</u>{' '}
+          sats selected
+        </h2>
       ) : (
-        <div>
-          {satsSelected.toLocaleString()} sats selected, need{' '}
-          {(
-            status.round.amount +
-            status.round.mixFee -
-            satsSelected
-          ).toLocaleString()}{' '}
-          more
-        </div>
+        <h2>
+          <u>{satsSelected.toLocaleString()}</u> sats selected,{' '}
+          <span className="danger">
+            need{' '}
+            <u>
+              {(
+                status.round.amount +
+                status.round.mixFee -
+                satsSelected
+              ).toLocaleString()}
+            </u>{' '}
+            more
+          </span>
+        </h2>
       )}
     </>
   );

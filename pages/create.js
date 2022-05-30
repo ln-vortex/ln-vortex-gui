@@ -9,6 +9,8 @@ export default function Create() {
   const { data: status, error: statusError } = useSWR('/api/status', fetcher);
   const [checkedState, setCheckedState] = useState();
   const [satsSelected, setSatsSelected] = useState(0);
+  const [nodePubkey, setNodePubkey] = useState('');
+  const [host, setHost] = useState('');
 
   const handleOnChange = (position) => {
     // disable selecting more UTXOs if there are already enough selected to pay for the channel
@@ -49,6 +51,21 @@ export default function Create() {
   return (
     <>
       <Header />
+      <h2>CREATE CHANNEL</h2>
+      <h3>Node Pubkey</h3>
+      <input
+        type="text"
+        value={nodePubkey}
+        onChange={(e) => setNodePubkey(e.target.value)}
+      />
+      <div>The pubkey of the target node you want to open a channel to.</div>
+      <h3>Host (optional)</h3>
+      <input
+        type="text"
+        value={host}
+        onChange={(e) => setHost(e.target.value)}
+      />
+      <div>The IP address / Tor address of the target node.</div>
       <h2>CHOOSE INPUTS</h2>
       <table>
         <thead>

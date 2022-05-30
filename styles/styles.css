@@ -6,7 +6,11 @@ body {
 
 h2 {
   color: white;
-  font-weight: normal;
+  font-weight: 400;
+}
+
+h3 {
+  font-weight: 600;
 }
 
 a {

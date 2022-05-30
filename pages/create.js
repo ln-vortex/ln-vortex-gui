@@ -11,25 +11,34 @@ export default function Create() {
   const [satsSelected, setSatsSelected] = useState(0);
 
   const handleOnChange = (position) => {
-    const initialCheckedState = !checkedState
-      ? new Array(utxoList.length).fill(false)
-      : checkedState;
+    // disable selecting more UTXOs if there are already enough selected to pay for the channel
+    if (!createChannelEnabled() || checkedState[position]) {
+      const initialCheckedState = !checkedState
+        ? new Array(utxoList.length).fill(false)
+        : checkedState;
 
-    const updatedCheckedState = initialCheckedState.map((item, index) =>
-      index === position ? !item : item
-    );
+      const updatedCheckedState = initialCheckedState.map((item, index) =>
+        index === position ? !item : item
+      );
 
-    setCheckedState(updatedCheckedState);
+      setCheckedState(updatedCheckedState);
 
-    const totalSats = updatedCheckedState.reduce((sum, currentState, index) => {
-      if (currentState === true) {
-        return sum + utxoList[index].amount;
-      }
-      return sum;
-    }, 0);
+      const totalSats = updatedCheckedState.reduce(
+        (sum, currentState, index) => {
+          if (currentState === true) {
+            return sum + utxoList[index].amount;
+          }
+          return sum;
+        },
+        0
+      );
 
-    setSatsSelected(totalSats);
+      setSatsSelected(totalSats);
+    }
   };
+
+  const createChannelEnabled = () =>
+    satsSelected >= status.round.amount + status.round.mixFee;
 
   const truncate = (input) =>
     input.length > 20 ? `${input.substring(0, 20)}...` : input;
@@ -88,7 +97,7 @@ export default function Create() {
         channel + {status.round.mixFee.toLocaleString()} sat fee)
       </div>
       <br />
-      {satsSelected >= status.round.amount + status.round.mixFee ? (
+      {createChannelEnabled() ? (
         <div>
           {(status.round.amount + status.round.mixFee).toLocaleString()} sats
           selected

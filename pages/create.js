@@ -70,7 +70,7 @@ export default function Create() {
                 </label>
               </td>
               <td>
-                <div className="">{amount} sats</div>
+                <div className="">{amount.toLocaleString()} sats</div>
               </td>
               <td>{truncate(address)}</td>
               <td>{confirmed ? 'YES' : 'NO'}</td>
@@ -80,17 +80,25 @@ export default function Create() {
       </table>
       <br />
       <div>
-        {status.round.amount + status.round.mixFee} sats required for Vortex
-        channel ({status.round.amount} sat channel + {status.round.mixFee} sat
-        fee)
+        {(status.round.amount + status.round.mixFee).toLocaleString()} sats
+        required for Vortex channel ({status.round.amount.toLocaleString()} sat
+        channel + {status.round.mixFee.toLocaleString()} sat fee)
       </div>
       <br />
       {satsSelected >= status.round.amount + status.round.mixFee ? (
-        <div>{status.round.amount + status.round.mixFee} sats selected</div>
+        <div>
+          {(status.round.amount + status.round.mixFee).toLocaleString()} sats
+          selected
+        </div>
       ) : (
         <div>
-          {satsSelected} sats selected, need{' '}
-          {status.round.amount + status.round.mixFee - satsSelected} more
+          {satsSelected.toLocaleString()} sats selected, need{' '}
+          {(
+            status.round.amount +
+            status.round.mixFee -
+            satsSelected
+          ).toLocaleString()}{' '}
+          more
         </div>
       )}
     </>

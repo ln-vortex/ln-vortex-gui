@@ -7,3 +7,30 @@ body {
 a {
   color: #e9daa6;
 }
+
+input[type='checkbox'] {
+  appearance: none;
+
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  padding: 3px;
+
+  background-clip: content-box;
+  border: 1.5px solid #9fe4fc;
+  border-radius: 6px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+input[type='checkbox']:checked {
+  background-color: #9fe4fc;
+}
+
+input[type='checkbox']:focus {
+  outline: none !important;
+}
+
+td {
+  padding: 0 25px;
+}

@@ -17,7 +17,10 @@ export default function Index() {
       <h2>Channels</h2>
       <ul>
         {channelData.map((c, i) => (
-          <Channel key={i} channel={c} />
+          <>
+            <Channel key={i} channel={c} />
+            <br />
+          </>
         ))}
       </ul>
       <Link href="/create">

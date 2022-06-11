@@ -13,30 +13,24 @@ export default function Create() {
   const [host, setHost] = useState('');
 
   const handleOnChange = (position) => {
-    // disable selecting more UTXOs if there are already enough selected to pay for the channel
-    if (!createChannelEnabled() || checkedState[position]) {
-      const initialCheckedState = !checkedState
-        ? new Array(utxoList.length).fill(false)
-        : checkedState;
+    const initialCheckedState = !checkedState
+      ? new Array(utxoList.length).fill(false)
+      : checkedState;
 
-      const updatedCheckedState = initialCheckedState.map((item, index) =>
-        index === position ? !item : item
-      );
+    const updatedCheckedState = initialCheckedState.map((item, index) =>
+      index === position ? !item : item
+    );
 
-      setCheckedState(updatedCheckedState);
+    setCheckedState(updatedCheckedState);
 
-      const totalSats = updatedCheckedState.reduce(
-        (sum, currentState, index) => {
-          if (currentState === true) {
-            return sum + utxoList[index].amount;
-          }
-          return sum;
-        },
-        0
-      );
+    const totalSats = updatedCheckedState.reduce((sum, currentState, index) => {
+      if (currentState === true) {
+        return sum + utxoList[index].amount;
+      }
+      return sum;
+    }, 0);
 
-      setSatsSelected(totalSats);
-    }
+    setSatsSelected(totalSats);
   };
 
   const createChannelEnabled = () =>
@@ -116,27 +110,25 @@ export default function Create() {
         channel + {status.round.mixFee.toLocaleString()} sat fee)
       </div>
       <br />
-      {createChannelEnabled() ? (
-        <h2>
-          <u>{(status.round.amount + status.round.mixFee).toLocaleString()}</u>{' '}
-          sats selected
-        </h2>
-      ) : (
-        <h2>
-          <u>{satsSelected.toLocaleString()}</u> sats selected,{' '}
-          <span className="danger">
-            need{' '}
-            <u>
-              {(
-                status.round.amount +
-                status.round.mixFee -
-                satsSelected
-              ).toLocaleString()}
-            </u>{' '}
-            more
-          </span>
-        </h2>
-      )}
+      <h2>
+        <u>{satsSelected.toLocaleString()}</u> sats selected
+        {!createChannelEnabled() && (
+          <>
+            ,{' '}
+            <span className="danger">
+              need{' '}
+              <u>
+                {(
+                  status.round.amount +
+                  status.round.mixFee -
+                  satsSelected
+                ).toLocaleString()}
+              </u>{' '}
+              more
+            </span>
+          </>
+        )}
+      </h2>
     </>
   );
 }

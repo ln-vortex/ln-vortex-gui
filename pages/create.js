@@ -65,10 +65,10 @@ export default function Create() {
 
     if (data.error) {
       setQueueCoinsError(data.error);
+      setQueueCoinsLoading(false);
     } else {
       router.push('/status');
     }
-    setQueueCoinsLoading(false);
   };
 
   const createChannelEnabled = () =>

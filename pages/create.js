@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useSWR from 'swr';
 import Header from '../components/Header';
+import { useRouter } from 'next/router';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -11,6 +12,9 @@ export default function Create() {
   const [satsSelected, setSatsSelected] = useState(0);
   const [nodePubkey, setNodePubkey] = useState('');
   const [host, setHost] = useState('');
+  const [queueCoinsError, setQueueCoinsError] = useState('');
+  const [queueCoinsLoading, setQueueCoinsLoading] = useState(false);
+  const router = useRouter();
 
   const handleOnChange = (position) => {
     const initialCheckedState = !checkedState
@@ -33,6 +37,40 @@ export default function Create() {
     setSatsSelected(totalSats);
   };
 
+  const handleQueueCoins = async () => {
+    setQueueCoinsError('');
+    setQueueCoinsLoading(true);
+
+    const allOutpoints = utxoList.map(function (item) {
+      return item.outPoint;
+    });
+    const selectedOutpoints = allOutpoints.filter(function (item, index) {
+      return checkedState[index];
+    });
+
+    const params = {
+      nodeId: nodePubkey,
+      outpoints: selectedOutpoints,
+    };
+
+    const response = await fetch('/api/queuecoins', {
+      method: 'POST',
+      body: JSON.stringify({ params }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    if (data.error) {
+      setQueueCoinsError(data.error);
+    } else {
+      router.push('/status');
+    }
+    setQueueCoinsLoading(false);
+  };
+
   const createChannelEnabled = () =>
     satsSelected >= status.round.amount + status.round.mixFee;
 
@@ -40,7 +78,7 @@ export default function Create() {
     input.length > 20 ? `${input.substring(0, 20)}...` : input;
 
   if (utxoError || statusError) return <div>Failed to load</div>;
-  if (!utxoList || !status) return <div>Loading...</div>;
+  if (!utxoList || !status || queueCoinsLoading) return <div>Loading...</div>;
 
   return (
     <>
@@ -129,6 +167,12 @@ export default function Create() {
           </>
         )}
       </h2>
+      {nodePubkey && createChannelEnabled() && (
+        <button onClick={handleQueueCoins}>CREATE CHANNEL</button>
+      )}
+      <br />
+      <br />
+      {queueCoinsError && <div className="danger">{queueCoinsError}</div>}
     </>
   );
 }

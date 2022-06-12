@@ -17,6 +17,17 @@ a {
   color: #e9daa6;
 }
 
+table {
+  border: 1px solid #9fe4fc;
+  padding: 4px;
+  border-spacing: 0;
+}
+
+thead {
+  background-color: #9fe4fc;
+  color: #13132f;
+}
+
 input[type='checkbox'] {
   appearance: none;
 
@@ -27,7 +38,7 @@ input[type='checkbox'] {
 
   background-clip: content-box;
   border: 1.5px solid #9fe4fc;
-  border-radius: 6px;
+  border-radius: 3px;
   margin-left: 15px;
   margin-right: 15px;
 }

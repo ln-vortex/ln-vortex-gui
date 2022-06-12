@@ -14,6 +14,20 @@ export default function Index() {
       <Header />
       <h2>Status</h2>
       {statusData.status}
+      {statusData.inputs && (
+        <ul>
+          {statusData.inputs.map((input, index) => (
+            <>
+              <li>
+                outpoint: {input.outPoint}
+                <br />
+                amount: {input.output.value}
+              </li>
+              <br />
+            </>
+          ))}
+        </ul>
+      )}
     </>
   );
 }

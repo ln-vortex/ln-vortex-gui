@@ -40,6 +40,26 @@ input[type='checkbox']:focus {
   outline: none !important;
 }
 
+input[type='text'] {
+  width: 900px;
+  height: 40px;
+  background-color: rgba(159, 228, 252, 0.19);
+  border: 0px;
+  border-bottom: 2px solid #9fe4fc;
+  color: white;
+  font-family: 'IBMPlexMono';
+  font-size: 16px;
+  padding-left: 15px;
+}
+
+input[type='text']:focus {
+  outline: none;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.2)
+  );
+}
+
 td {
   padding: 0 25px;
 }

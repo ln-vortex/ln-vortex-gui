@@ -106,3 +106,9 @@ button[disabled] {
 .success {
   color: #8fcc79;
 }
+
+.header {
+  color: white;
+  text-decoration: none;
+  font-size: 30px;
+}

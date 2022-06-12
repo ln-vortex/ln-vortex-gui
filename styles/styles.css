@@ -44,6 +44,26 @@ td {
   padding: 0 25px;
 }
 
+button {
+  color: #e9daa6;
+  background-color: transparent;
+  font-family: 'IBMPlexMono';
+  font-size: 20px;
+  border-radius: 4px;
+  border-color: #e9daa6;
+  border: 1px solid #e9daa6;
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
+button:disabled,
+button[disabled] {
+  color: rgba(199, 199, 199, 0.5);
+  border-color: rgba(199, 199, 199, 0.5);
+  background-color: rgba(119, 119, 119, 0.15);
+  cursor: default;
+}
+
 .selected {
   background-color: rgba(159, 228, 252, 0.19);
 }

@@ -1,12 +1,13 @@
 import useSWR from 'swr';
 import Channel from '../components/Channel';
 import Header from '../components/Header';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function Index() {
   const { data: channelData, error } = useSWR('/api/channels', fetcher);
+  const router = useRouter();
 
   if (error) return <div>Failed to load</div>;
   if (!channelData) return <div>Loading...</div>;
@@ -23,9 +24,13 @@ export default function Index() {
           </>
         ))}
       </ul>
-      <Link href="/create">
-        <a>CREATE NEW CHANNEL</a>
-      </Link>
+      <button
+        onClick={() => {
+          router.push('/create');
+        }}
+      >
+        CREATE NEW CHANNEL
+      </button>
     </>
   );
 }

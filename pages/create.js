@@ -167,9 +167,13 @@ export default function Create() {
           </>
         )}
       </h2>
-      {nodePubkey && createChannelEnabled() && (
-        <button onClick={handleQueueCoins}>CREATE CHANNEL</button>
-      )}
+      <br />
+      <button
+        disabled={!(nodePubkey && createChannelEnabled())}
+        onClick={handleQueueCoins}
+      >
+        CREATE CHANNEL
+      </button>
       <br />
       <br />
       {queueCoinsError && <div className="danger">{queueCoinsError}</div>}

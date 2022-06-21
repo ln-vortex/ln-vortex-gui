@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
-import Header from '../components/Header';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -31,7 +30,6 @@ export default function Index() {
 
   return (
     <>
-      <Header />
       <h2>Status</h2>
       {statusData.status}
       {statusData.inputs && (

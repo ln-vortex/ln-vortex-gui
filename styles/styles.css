@@ -52,7 +52,7 @@ input[type='checkbox']:focus {
 }
 
 input[type='text'] {
-  width: 900px;
+  width: 98%;
   height: 40px;
   background-color: rgba(159, 228, 252, 0.19);
   border: 0px;
@@ -111,4 +111,13 @@ button[disabled] {
   color: white;
   text-decoration: none;
   font-size: 30px;
+}
+
+.utxo-table {
+  width: 100%;
+}
+
+#wrapper {
+  width: 1000px;
+  margin: auto;
 }

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import useSWR from 'swr';
-import Header from '../components/Header';
 import { useRouter } from 'next/router';
 import UTXOTable from '../components/UTXOTable';
 import SatsSelected from '../components/SatsSelected';
@@ -83,7 +82,6 @@ export default function Create() {
 
   return (
     <>
-      <Header />
       <h2>CREATE CHANNEL</h2>
       <h3>Node Pubkey</h3>
       <input

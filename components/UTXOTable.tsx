@@ -3,7 +3,7 @@ export default function UTXOTable({ utxoList, checkedState, handleOnChange }) {
     input.length > 20 ? `${input.substring(0, 20)}...` : input;
 
   return (
-    <table>
+    <table className="utxo-table">
       <thead>
         <tr>
           <th scope="col"></th>

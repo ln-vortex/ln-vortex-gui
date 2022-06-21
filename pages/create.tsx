@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import Header from '../components/Header';
 import { useRouter } from 'next/router';
 import UTXOTable from '../components/UTXOTable';
+import SatsSelected from '../components/SatsSelected';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -111,25 +112,11 @@ export default function Create() {
         channel + {status.round.mixFee.toLocaleString()} sat fee)
       </div>
       <br />
-      <h2>
-        <u>{satsSelected.toLocaleString()}</u> sats selected
-        {!createChannelEnabled() && (
-          <>
-            ,{' '}
-            <span className="danger">
-              need{' '}
-              <u>
-                {(
-                  status.round.amount +
-                  status.round.mixFee -
-                  satsSelected
-                ).toLocaleString()}
-              </u>{' '}
-              more
-            </span>
-          </>
-        )}
-      </h2>
+      <SatsSelected
+        satsSelected={satsSelected}
+        createChannelEnabled={createChannelEnabled}
+        status={status}
+      />
       <br />
       <button
         disabled={!(nodePubkey && createChannelEnabled())}

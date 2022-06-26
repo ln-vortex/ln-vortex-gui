@@ -14,11 +14,10 @@ export default function Index() {
   return (
     <>
       <h2>Channels</h2>
-      <ul>
+      <ul className="scrollable">
         {channelData.map((c, i) => (
           <>
             <Channel key={i} channel={c} />
-            <br />
           </>
         ))}
       </ul>

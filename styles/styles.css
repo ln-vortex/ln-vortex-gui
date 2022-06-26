@@ -17,6 +17,10 @@ a {
   color: #e9daa6;
 }
 
+ul {
+  list-style-type: none;
+}
+
 table {
   border: 1px solid #9fe4fc;
   padding: 4px;
@@ -117,7 +121,73 @@ button[disabled] {
   width: 100%;
 }
 
+.scrollable {
+  overflow-y: scroll;
+  max-height: 500px;
+  padding-bottom: 30px;
+  border: 1px solid #9fe4fc;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
 #wrapper {
   width: 1000px;
   margin: auto;
+}
+
+#channel-title {
+  position: relative;
+  font-size: 20px;
+  z-index: 1;
+  overflow: hidden;
+  text-align: center;
+  padding-right: 740px;
+}
+
+#channel-title:before,
+#channel-title:after {
+  position: absolute;
+  top: 51%;
+  overflow: hidden;
+  width: 50%;
+  height: 1px;
+  content: '\a0';
+  background-color: #9fe4fc;
+}
+
+#channel-title:before {
+  margin-left: -51%;
+}
+
+#channel-title:after {
+  margin-left: 10px;
+  width: 77%;
+}
+
+#channel-details {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 200px 200px;
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #13132f;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #9fe4fc;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #9fe4fc;
 }

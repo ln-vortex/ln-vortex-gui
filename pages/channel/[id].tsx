@@ -26,12 +26,12 @@ export default function Channel() {
       <thead>
         <tr>
           <th>Channel ID</th>
-          <td>{data.shortChannelId}</td>
+          <th>Amount</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th>Amount</th>
+          <td>{data.shortChannelId}</td>
           <td>{data.amount}</td>
         </tr>
       </tbody>

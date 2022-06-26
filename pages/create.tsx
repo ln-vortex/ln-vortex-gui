@@ -53,6 +53,7 @@ export default function Create() {
 
     const params = {
       nodeId: nodePubkey,
+      peerAddr: host, // optional
       outpoints: selectedOutpoints,
     };
 

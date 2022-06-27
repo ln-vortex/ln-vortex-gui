@@ -21,13 +21,15 @@ export default function Index() {
           </>
         ))}
       </ul>
-      <button
-        onClick={() => {
-          router.push('/create');
-        }}
-      >
-        CREATE NEW CHANNEL
-      </button>
+      <div style={{ textAlign: 'center' }}>
+        <button
+          onClick={() => {
+            router.push('/create');
+          }}
+        >
+          CREATE NEW CHANNEL
+        </button>
+      </div>
     </>
   );
 }

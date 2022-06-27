@@ -4,6 +4,10 @@ body {
   background-color: #13132f;
 }
 
+main {
+  padding-bottom: 80px;
+}
+
 h2 {
   color: white;
   font-weight: 400;
@@ -132,9 +136,16 @@ button[disabled] {
   font-weight: bold;
 }
 
+.small-text {
+  font-size: 14px;
+  color: white;
+}
+
 #wrapper {
   width: 1000px;
   margin: auto;
+  position: relative;
+  min-height: calc(100vh - 50px);
 }
 
 #channel-title {
@@ -171,6 +182,13 @@ button[disabled] {
   margin-bottom: 10px;
   display: grid;
   grid-template-columns: 200px 200px;
+}
+
+#footer {
+  position: absolute;
+  width: 1000px;
+  bottom: 0px;
+  height: 30px;
 }
 
 ::-webkit-scrollbar {

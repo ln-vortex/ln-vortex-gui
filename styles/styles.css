@@ -109,6 +109,7 @@ button[disabled] {
 
 .danger {
   color: #d37661;
+  border-color: #d37661;
 }
 
 .success {
@@ -148,40 +149,25 @@ button[disabled] {
   min-height: calc(100vh - 50px);
 }
 
-#channel-title {
-  position: relative;
-  font-size: 20px;
-  z-index: 1;
-  overflow: hidden;
-  text-align: center;
-  padding-right: 740px;
+#listitem-title {
+  width: 95%;
+  font-size: 18px;
+  text-align: left;
+  border-bottom: 1px solid #9fe4fc;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+  padding-left: 20px;
+}
+#listitem-title span {
+  background: #13132f;
+  padding: 0 10px;
 }
 
-#channel-title:before,
-#channel-title:after {
-  position: absolute;
-  top: 51%;
-  overflow: hidden;
-  width: 50%;
-  height: 1px;
-  content: '\a0';
-  background-color: #9fe4fc;
-}
-
-#channel-title:before {
-  margin-left: -51%;
-}
-
-#channel-title:after {
-  margin-left: 10px;
-  width: 77%;
-}
-
-#channel-details {
+#listitem-details {
   margin-top: 10px;
   margin-bottom: 10px;
   display: grid;
-  grid-template-columns: 200px 200px;
+  grid-template-columns: 200px 400px;
 }
 
 #footer {

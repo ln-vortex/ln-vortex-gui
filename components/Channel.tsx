@@ -4,8 +4,10 @@ export default function Channel({ channel }) {
   return (
     <li>
       <br />
-      <div id="channel-title">{channel.alias}</div>
-      <div id="channel-details">
+      <div id="listitem-title">
+        <span>{channel.alias}</span>
+      </div>
+      <div id="listitem-details">
         <div className="bold-text">Capacity</div>
         <div>{channel.amount.toLocaleString()} sats</div>
         <div className="bold-text">Channel ID</div>

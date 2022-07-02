@@ -1,4 +1,9 @@
-export default function UTXOTable({ utxoList, checkedState, handleOnChange }) {
+export default function UTXOTable({
+  utxoList,
+  checkedState,
+  handleOnChange,
+  selectable = true,
+}) {
   const truncate = (input) =>
     input.length > 20 ? `${input.substring(0, 20)}...` : input;
 
@@ -6,7 +11,7 @@ export default function UTXOTable({ utxoList, checkedState, handleOnChange }) {
     <table className="utxo-table">
       <thead>
         <tr>
-          <th scope="col"></th>
+          {selectable && <th scope="col"></th>}
           <th scope="col">OUTPOINT</th>
           <th scope="col">AMOUNT</th>
           <th scope="col">ADDRESS</th>
@@ -19,16 +24,18 @@ export default function UTXOTable({ utxoList, checkedState, handleOnChange }) {
             key={index}
             className={checkedState && checkedState[index] ? 'selected' : ''}
           >
-            <th scope="row">
-              <input
-                type="checkbox"
-                id={`custom-checkbox-${index}`}
-                name={outPoint}
-                value={outPoint}
-                checked={checkedState ? checkedState[index] : false}
-                onChange={() => handleOnChange(index)}
-              />
-            </th>
+            {selectable && (
+              <th scope="row">
+                <input
+                  type="checkbox"
+                  id={`custom-checkbox-${index}`}
+                  name={outPoint}
+                  value={outPoint}
+                  checked={checkedState ? checkedState[index] : false}
+                  onChange={() => handleOnChange(index)}
+                />
+              </th>
+            )}
             <td>
               <label htmlFor={`custom-checkbox-${index}`}>
                 {truncate(outPoint)}

@@ -1,12 +1,8 @@
-export default function SatsSelected({
-  satsSelected,
-  createChannelEnabled,
-  status,
-}) {
+export default function SatsSelected({ satsSelected, enabled, status }) {
   return (
     <h2>
       <u>{satsSelected.toLocaleString()}</u> sats selected
-      {!createChannelEnabled() && (
+      {!enabled() && (
         <>
           ,{' '}
           <span className="danger">

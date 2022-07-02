@@ -103,6 +103,20 @@ button[disabled] {
   cursor: default;
 }
 
+.button-group {
+  width: 500px;
+  height: 50px;
+  background-color: #13132f;
+  color: #9fe4fc;
+  border: 1.5px solid #9fe4fc;
+  border-radius: 0;
+}
+
+.active {
+  background-color: #9fe4fc;
+  color: #13132f;
+}
+
 .selected {
   background-color: rgba(159, 228, 252, 0.19);
 }

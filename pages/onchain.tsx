@@ -13,8 +13,7 @@ export default function Create() {
     undefined
   );
   const [satsSelected, setSatsSelected] = useState(0);
-  const [nodePubkey, setNodePubkey] = useState('');
-  const [host, setHost] = useState('');
+  const [address, setAddress] = useState('');
   const [queueCoinsError, setQueueCoinsError] = useState('');
   const [queueCoinsLoading, setQueueCoinsLoading] = useState(false);
   const router = useRouter();
@@ -52,8 +51,7 @@ export default function Create() {
     });
 
     const params = {
-      nodeId: nodePubkey,
-      peerAddr: host, // optional
+      address: address, // optional
       outpoints: selectedOutpoints,
     };
 
@@ -75,7 +73,7 @@ export default function Create() {
     }
   };
 
-  const createChannelEnabled = () =>
+  const queueTransactionEnabled = () =>
     satsSelected >= status.round.amount + status.round.mixFee;
 
   if (utxoError || statusError) return <div>Failed to load</div>;
@@ -83,21 +81,17 @@ export default function Create() {
 
   return (
     <>
-      <h2>CREATE CHANNEL</h2>
-      <h3>Node Pubkey</h3>
+      <h2>COLLABORATIVE TRANSACTION</h2>
+      <h3>Address (optional)</h3>
       <input
         type="text"
-        value={nodePubkey}
-        onChange={(e) => setNodePubkey(e.target.value)}
+        value={address}
+        onChange={(e) => setAddress(e.target.value)}
       />
-      <div>The pubkey of the target node you want to open a channel to.</div>
-      <h3>Host (optional)</h3>
-      <input
-        type="text"
-        value={host}
-        onChange={(e) => setHost(e.target.value)}
-      />
-      <div>The IP address / Tor address of the target node.</div>
+      <div>
+        Address to send to. If this is not entered, an address will be generated
+        from your wallet.
+      </div>
       <h2>CHOOSE INPUTS</h2>
       <UTXOTable
         utxoList={utxoList}
@@ -107,21 +101,19 @@ export default function Create() {
       <br />
       <div>
         {(status.round.amount + status.round.mixFee).toLocaleString()} sats
-        required for Vortex channel ({status.round.amount.toLocaleString()} sat
-        channel + {status.round.mixFee.toLocaleString()} sat fee)
+        required for collaborative transaction (
+        {status.round.amount.toLocaleString()} sat transaction +{' '}
+        {status.round.mixFee.toLocaleString()} sat fee)
       </div>
       <br />
       <SatsSelected
         satsSelected={satsSelected}
-        enabled={createChannelEnabled}
+        enabled={queueTransactionEnabled}
         status={status}
       />
       <br />
-      <button
-        disabled={!(nodePubkey && createChannelEnabled())}
-        onClick={handleQueueCoins}
-      >
-        CREATE CHANNEL
+      <button disabled={!queueTransactionEnabled()} onClick={handleQueueCoins}>
+        QUEUE COLLABORATIVE TRANSACTION
       </button>
       <br />
       <br />

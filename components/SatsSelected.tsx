@@ -10,7 +10,7 @@ export default function SatsSelected({ satsSelected, enabled, status }) {
             <u>
               {(
                 status.round.amount +
-                status.round.mixFee -
+                status.round.coordinatorFee -
                 satsSelected
               ).toLocaleString()}
             </u>{' '}

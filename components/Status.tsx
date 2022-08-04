@@ -25,7 +25,7 @@ export default function Status({ statusData }) {
         <div className="bold-text">Amount</div>
         <div>{round.amount.toLocaleString()} sats</div>
         <div className="bold-text">Fee</div>
-        <div>{round.mixFee.toLocaleString()} sats</div>
+        <div>{round.coordinatorFee.toLocaleString()} sats</div>
         <div className="bold-text">Max participants</div>
         <div>{round.maxPeers}</div>
       </div>

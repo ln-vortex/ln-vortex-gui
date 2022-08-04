@@ -74,7 +74,7 @@ export default function Create() {
   };
 
   const queueTransactionEnabled = () =>
-    satsSelected >= status.round.amount + status.round.mixFee;
+    satsSelected >= status.round.amount + status.round.coordinatorFee;
 
   if (utxoError || statusError) return <div>Failed to load</div>;
   if (!utxoList || !status || queueCoinsLoading) return <div>Loading...</div>;
@@ -100,10 +100,10 @@ export default function Create() {
       />
       <br />
       <div>
-        {(status.round.amount + status.round.mixFee).toLocaleString()} sats
+        {(status.round.amount + status.round.coordinatorFee).toLocaleString()} sats
         required for collaborative transaction (
         {status.round.amount.toLocaleString()} sat transaction +{' '}
-        {status.round.mixFee.toLocaleString()} sat fee)
+        {status.round.coordinatorFee.toLocaleString()} sat fee)
       </div>
       <br />
       <SatsSelected

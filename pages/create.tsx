@@ -76,7 +76,7 @@ export default function Create() {
   };
 
   const createChannelEnabled = () =>
-    satsSelected >= status.round.amount + status.round.mixFee;
+    satsSelected >= status.round.amount + status.round.coordinatorFee;
 
   if (utxoError || statusError) return <div>Failed to load</div>;
   if (!utxoList || !status || queueCoinsLoading) return <div>Loading...</div>;
@@ -106,9 +106,9 @@ export default function Create() {
       />
       <br />
       <div>
-        {(status.round.amount + status.round.mixFee).toLocaleString()} sats
+        {(status.round.amount + status.round.coordinatorFee).toLocaleString()} sats
         required for Vortex channel ({status.round.amount.toLocaleString()} sat
-        channel + {status.round.mixFee.toLocaleString()} sat fee)
+        channel + {status.round.coordinatorFee.toLocaleString()} sat fee)
       </div>
       <br />
       <SatsSelected

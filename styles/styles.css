@@ -164,17 +164,32 @@ button[disabled] {
 }
 
 #listitem-title {
-  width: 95%;
+  width: 90%;
   font-size: 18px;
   text-align: left;
   border-bottom: 1px solid #9fe4fc;
-  line-height: 0.1em;
-  margin: 10px 0 20px;
-  padding-left: 20px;
+  margin: 10px 0 25px;
+  padding: 0 30px 11px 20px;
 }
+
 #listitem-title span {
   background: #13132f;
   padding: 0 10px;
+}
+
+#listitem-title span.inactive {
+  color: #13132f;
+  background-color: #d37661;
+}
+
+#listitem-title span.active {
+  color: #13132f;
+  background-color: #8fcc79;
+}
+
+#listitem-title span.pending {
+  color: #13132f;
+  background-color: #bb6bd9;
 }
 
 #listitem-details {

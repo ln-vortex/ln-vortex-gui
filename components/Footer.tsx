@@ -1,5 +1,4 @@
 import Github from '../assets/github.svg';
-import Link from 'next/link';
 
 export default function Footer() {
   return (

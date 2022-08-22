@@ -1,11 +1,23 @@
 import Link from 'next/link';
 
 export default function Channel({ channel }) {
+  const channelState: string =
+    channel.shortChannelId === '0x0x0'
+      ? 'Pending'
+      : channel.active
+      ? 'Active'
+      : 'Inactive';
+
+  const channelStateClass = channelState.toLowerCase();
+
   return (
     <li>
       <br />
       <div id="listitem-title">
-        <span>{channel.alias}</span>
+        <span style={{ float: 'left' }}>{channel.alias}</span>
+        <span className={channelStateClass} style={{ float: 'right' }}>
+          {channelState}
+        </span>
       </div>
       <div id="listitem-details">
         <div className="bold-text">Capacity</div>

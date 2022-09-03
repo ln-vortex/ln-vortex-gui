@@ -16,7 +16,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function Index() {
   const { data: statusData, error: statusError } = useSWR(
-    '/api/status',
+    '/api/lightningstatus',
     fetcher
   );
   const { data: channelData, error: channelError } = useSWR(

@@ -1,3 +1,5 @@
+import { outPointString } from '../utils/convertor';
+
 export default function InputsScheduled({ inputs }) {
   return (
     <>
@@ -5,7 +7,7 @@ export default function InputsScheduled({ inputs }) {
         <li key={index}>
           <br />
           <div id="listitem-title">
-            <span>{input.outPoint}</span>
+            <span>{outPointString(input.outPoint)}</span>
           </div>
           <div id="listitem-details">
             <div className="bold-text">Amount</div>

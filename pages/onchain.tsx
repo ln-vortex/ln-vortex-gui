@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import UTXOTable from '../components/UTXOTable';
 import SatsSelected from '../components/SatsSelected';
+import { outPointString } from '../utils/convertor';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -44,7 +45,7 @@ export default function Create() {
     setQueueCoinsLoading(true);
 
     const allOutpoints = utxoList.map(function (item) {
-      return item.outPoint;
+      return outPointString(item.outPoint);
     });
     const selectedOutpoints = allOutpoints.filter(function (item, index) {
       return checkedState[index];
@@ -100,8 +101,8 @@ export default function Create() {
       />
       <br />
       <div>
-        {(status.round.amount + status.round.coordinatorFee).toLocaleString()} sats
-        required for collaborative transaction (
+        {(status.round.amount + status.round.coordinatorFee).toLocaleString()}{' '}
+        sats required for collaborative transaction (
         {status.round.amount.toLocaleString()} sat transaction +{' '}
         {status.round.coordinatorFee.toLocaleString()} sat fee)
       </div>

@@ -16,45 +16,51 @@ export default function UTXOTable({
           {selectable && <th scope="col"></th>}
           <th scope="col">OUTPOINT</th>
           <th scope="col">AMOUNT</th>
+          <th scope="col">ANON SET</th>
           <th scope="col">ADDRESS</th>
           <th scope="col">CONFIRMED?</th>
         </tr>
       </thead>
       <tbody>
-        {utxoList.map(({ outPoint, amount, address, confirmed }, index) => {
-          outPoint = outPointString(outPoint);
-          return (
-            <tr
-              key={index}
-              className={checkedState && checkedState[index] ? 'selected' : ''}
-            >
-              {selectable && (
-                <th scope="row">
-                  <input
-                    type="checkbox"
-                    id={`custom-checkbox-${index}`}
-                    name={outPoint}
-                    value={outPoint}
-                    checked={checkedState ? checkedState[index] : false}
-                    onChange={() => handleOnChange(index)}
-                  />
-                </th>
-              )}
-              <td>
-                <label htmlFor={`custom-checkbox-${index}`}>
-                  {truncate(outPoint)}
-                </label>
-              </td>
-              <td>
-                <div className="">{amount.toLocaleString()} sats</div>
-              </td>
-              <td>{truncate(address)}</td>
-              <td className={confirmed ? 'success' : 'danger'}>
-                {confirmed ? 'YES' : 'NO'}
-              </td>
-            </tr>
-          );
-        })}
+        {utxoList.map(
+          ({ outPoint, amount, address, anonSet, confirmed }, index) => {
+            outPoint = outPointString(outPoint);
+            return (
+              <tr
+                key={index}
+                className={
+                  checkedState && checkedState[index] ? 'selected' : ''
+                }
+              >
+                {selectable && (
+                  <th scope="row">
+                    <input
+                      type="checkbox"
+                      id={`custom-checkbox-${index}`}
+                      name={outPoint}
+                      value={outPoint}
+                      checked={checkedState ? checkedState[index] : false}
+                      onChange={() => handleOnChange(index)}
+                    />
+                  </th>
+                )}
+                <td>
+                  <label htmlFor={`custom-checkbox-${index}`}>
+                    {truncate(outPoint)}
+                  </label>
+                </td>
+                <td>
+                  <div className="">{amount.toLocaleString()} sats</div>
+                </td>
+                <td>{anonSet.toLocaleString()}</td>
+                <td>{truncate(address)}</td>
+                <td className={confirmed ? 'success' : 'danger'}>
+                  {confirmed ? 'YES' : 'NO'}
+                </td>
+              </tr>
+            );
+          }
+        )}
       </tbody>
     </table>
   );

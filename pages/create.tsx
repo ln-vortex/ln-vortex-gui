@@ -23,7 +23,7 @@ export default function Create() {
   const [queueCoinsLoading, setQueueCoinsLoading] = useState(false);
   const router = useRouter();
 
-  const handleOnChange = (position) => {
+  const handleOnChange = (position: number) => {
     const initialCheckedState = !checkedState
       ? new Array(utxoList.length).fill(false)
       : checkedState;
@@ -79,8 +79,29 @@ export default function Create() {
     }
   };
 
-  const createChannelEnabled = () =>
-    satsSelected >= status.round.amount + status.round.coordinatorFee;
+  const zeroFees = () => {
+    let zeroFee = false;
+    for (let i = 0; i < checkedState?.length; i++) {
+      const currUtxo = utxoList[i];
+      if (
+        checkedState[i] &&
+        currUtxo.anonSet > 1 &&
+        currUtxo.amount >= status.round.amount
+      ) {
+        zeroFee = true;
+        break;
+      }
+    }
+    return zeroFee;
+  };
+
+  const createChannelEnabled = () => {
+    let roundAmount = status.round.amount;
+    if (!zeroFees()) {
+      roundAmount += status.round.coordinatorFee;
+    }
+    return satsSelected >= roundAmount;
+  };
 
   if (utxoError || statusError) return <div>Failed to load</div>;
   if (!utxoList || !status || queueCoinsLoading) return <div>Loading...</div>;

@@ -10,20 +10,20 @@
   "dependencies": {
     "axios": "^0.27.2",
     "lint": "^0.7.0",
-    "ln-service": "^53.16.1",
-    "next": "latest",
-    "react": "^17.0.2",
+    "ln-service": "^53.23.0",
+    "next": "12.2.5",
+    "react": "^18.2.0",
     "react-burger-menu": "^3.0.8",
-    "react-dom": "^17.0.2",
+    "react-dom": "^18.2.0",
     "swr": "^1.0.1"
   },
   "devDependencies": {
-    "@types/react": "^18.0.14",
+    "@types/react": "^18.0.18",
     "babel-plugin-inline-react-svg": "^2.0.1",
-    "eslint": "8.15.0",
-    "eslint-config-next": "12.1.6",
+    "eslint": "8.23.0",
+    "eslint-config-next": "12.2.5",
     "eslint-config-prettier": "^8.5.0",
-    "prettier": "^2.6.2",
-    "typescript": "^4.7.4"
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.2"
   }
 }

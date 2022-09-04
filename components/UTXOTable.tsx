@@ -1,5 +1,3 @@
-import { outPointString } from '../utils/convertor';
-
 export default function UTXOTable({
   utxoList,
   checkedState,
@@ -24,7 +22,6 @@ export default function UTXOTable({
       <tbody>
         {utxoList.map(
           ({ outPoint, amount, address, anonSet, confirmed }, index) => {
-            outPoint = outPointString(outPoint);
             return (
               <tr
                 key={index}

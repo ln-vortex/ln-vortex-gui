@@ -9,7 +9,10 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function Create() {
   const { data: utxoList, error: utxoError } = useSWR('/api/utxos', fetcher);
-  const { data: status, error: statusError } = useSWR('/api/status', fetcher);
+  const { data: status, error: statusError } = useSWR(
+    '/api/onchainstatus',
+    fetcher
+  );
   const [checkedState, setCheckedState] = useState<Array<boolean> | undefined>(
     undefined
   );

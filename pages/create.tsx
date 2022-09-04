@@ -83,13 +83,16 @@ export default function Create() {
     let zeroFee = false;
     for (let i = 0; i < checkedState?.length; i++) {
       const currUtxo = utxoList[i];
-      if (
+      // cannot remix with multiple utxos
+      if (zeroFee && checkedState[i]) {
+        zeroFee = false;
+        break;
+      } else if (
         checkedState[i] &&
         currUtxo.anonSet > 1 &&
-        currUtxo.amount >= status.round.amount
+        currUtxo.amount == status.round.amount
       ) {
         zeroFee = true;
-        break;
       }
     }
     return zeroFee;

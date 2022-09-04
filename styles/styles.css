@@ -103,15 +103,6 @@ button[disabled] {
   cursor: default;
 }
 
-.button-group {
-  width: 500px;
-  height: 50px;
-  background-color: #13132f;
-  color: #9fe4fc;
-  border: 1.5px solid #9fe4fc;
-  border-radius: 0;
-}
-
 .active {
   background-color: #9fe4fc;
   color: #13132f;
@@ -134,6 +125,8 @@ button[disabled] {
   color: white;
   text-decoration: none;
   font-size: 30px;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .utxo-table {
@@ -224,3 +217,63 @@ button[disabled] {
 ::-webkit-scrollbar-thumb:hover {
   background: #9fe4fc;
 }
+
+/* burger menu start */
+
+#page-wrap {
+  text-align: center;
+  /* Prevent sidebar from showing a scrollbar on page */
+  overflow: auto;
+}
+
+.bm-item {
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  left: 24px;
+  top: 24px;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #13132f;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+.bm-menu-wrap {
+  position: fixed;
+  height: 100%;
+}
+
+.bm-cross {
+  background: white;
+}
+
+.bm-item-list a {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.current-action {
+  color: white;
+  margin-bottom: 4px;
+}
+
+.actions {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 4px;
+}
+
+.actions:hover {
+  color: white;
+}
+
+/* burger menu end */

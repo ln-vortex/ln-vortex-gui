@@ -15,6 +15,7 @@ export default function Create() {
   const [checkedState, setCheckedState] = useState<Array<boolean> | undefined>(
     undefined
   );
+  const [utxosSelected, setUtxosSelected] = useState<Array<any>>([]);
   const [satsSelected, setSatsSelected] = useState(0);
   const [nodePubkey, setNodePubkey] = useState('');
   const [host, setHost] = useState('');
@@ -23,35 +24,36 @@ export default function Create() {
   const router = useRouter();
 
   const handleOnChange = (position: number) => {
+    const changedUtxo = utxoList[position];
     const initialCheckedState = !checkedState
       ? new Array(utxoList.length).fill(false)
       : checkedState;
 
-    const updatedCheckedState = initialCheckedState.map((item, index) =>
-      index === position ? !item : item
+    if (initialCheckedState[position]) {
+      setUtxosSelected(
+        utxosSelected.filter(function (utxo) {
+          return utxo.outPoint !== changedUtxo.outPoint;
+        })
+      );
+      setSatsSelected(satsSelected - changedUtxo.amount);
+    } else {
+      utxosSelected.push(changedUtxo);
+      setSatsSelected(satsSelected + changedUtxo.amount);
+    }
+
+    setCheckedState(
+      initialCheckedState.map((item, index) =>
+        index === position ? !item : item
+      )
     );
-
-    setCheckedState(updatedCheckedState);
-
-    const totalSats = updatedCheckedState.reduce((sum, currentState, index) => {
-      if (currentState === true) {
-        return sum + utxoList[index].amount;
-      }
-      return sum;
-    }, 0);
-
-    setSatsSelected(totalSats);
   };
 
   const handleQueueCoins = async () => {
     setQueueCoinsError('');
     setQueueCoinsLoading(true);
 
-    const allOutpoints = utxoList.map(function (item) {
+    const selectedOutpoints = utxosSelected.map(function (item) {
       return item.outPoint;
-    });
-    const selectedOutpoints = allOutpoints.filter(function (item, index) {
-      return checkedState[index];
     });
 
     const params = {
@@ -80,19 +82,13 @@ export default function Create() {
   };
 
   const zeroFees = () => {
-    let zeroFee = false;
-    for (let i = 0; i < checkedState?.length; i++) {
-      const currUtxo = utxoList[i];
-      if (
-        checkedState[i] &&
-        currUtxo.anonSet > 1 &&
-        currUtxo.amount >= status.round.amount
-      ) {
-        zeroFee = true;
-        break;
-      }
-    }
-    return zeroFee;
+    if (utxosSelected.length != 1) return false;
+    else if (
+      utxosSelected[0].anonSet > 1 &&
+      utxosSelected[0].amount == status.round.amount
+    )
+      return true;
+    else return false;
   };
 
   const createChannelEnabled = () => {

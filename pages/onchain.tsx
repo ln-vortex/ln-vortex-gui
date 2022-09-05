@@ -54,6 +54,7 @@ export default function Create() {
     });
 
     const params = {
+      coordinator: status.name,
       address: address, // optional
       outpoints: selectedOutpoints,
     };

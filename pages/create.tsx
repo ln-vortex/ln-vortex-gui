@@ -55,6 +55,7 @@ export default function Create() {
     });
 
     const params = {
+      coordinator: status.name,
       nodeId: nodePubkey,
       peerAddr: host, // optional
       outpoints: selectedOutpoints,

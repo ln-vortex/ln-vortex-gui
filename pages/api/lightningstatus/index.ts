@@ -23,6 +23,7 @@ export default async function handler(req, res) {
         const coordinator = coordinators[item];
         if (coordinator.transactionTypes.includes('ChannelOpen')) {
           lightningCoordinator = coordinator;
+          lightningCoordinator.name = item;
           break;
         }
       }

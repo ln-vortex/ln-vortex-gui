@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { slide as Menu } from 'react-burger-menu';
 
-const HamburgerMenu = () => {
+const HamburgerMenu = ({ statusData }) => {
   const [isOpen, setOpen] = useState(false);
 
   const handleIsOpen = () => {
@@ -23,7 +23,7 @@ const HamburgerMenu = () => {
         onOpen={handleIsOpen}
         onClose={handleIsOpen}
       >
-        <Links closeSideBar={closeSideBar} />
+        <Links closeSideBar={closeSideBar} statusData={statusData} />
       </Menu>
     </div>
   );
@@ -44,39 +44,65 @@ const HamburgerIcon = () => (
   </div>
 );
 
-export const Links = ({ closeSideBar }) => {
+export const Links = ({ closeSideBar, statusData }) => {
   const router = useRouter();
+  const [selectedCoordinatorIndex, setSelectedCoordinatorIndex] = useState(0);
+  const selectedCoordinator = statusData[selectedCoordinatorIndex][1];
 
   return (
     <>
       <div
         style={{
           color: 'white',
-          marginBottom: '12px',
+          marginBottom: '6px',
         }}
       >
-        Transaction Type:
+        Coordinator:
       </div>
-      <Link href="/">
-        <a
-          onClick={closeSideBar}
-          className={router.pathname == '/' ? 'current-action' : 'actions'}
-        >
-          Vortex channel open
-        </a>
-      </Link>
-      <Link href="/collaborativetransaction">
-        <a
-          onClick={closeSideBar}
-          className={
-            router.pathname == '/collaborativetransaction'
-              ? 'current-action'
-              : 'actions'
-          }
-        >
-          Collaborative transaction
-        </a>
-      </Link>
+      <select
+        name="coordinators"
+        id="coordinators"
+        onChange={(e) => {
+          setSelectedCoordinatorIndex(e.target.selectedIndex);
+        }}
+        style={{ marginBottom: '24px' }}
+      >
+        {statusData.map((coordinator, index) => (
+          <option key={index}>{coordinator[0]}</option>
+        ))}
+      </select>
+      <div
+        style={{
+          color: 'white',
+          marginBottom: '6px',
+        }}
+      >
+        Supported Transaction Types:
+      </div>
+      {selectedCoordinator.transactionTypes?.includes('ChannelOpen') && (
+        <Link href="/">
+          <a
+            onClick={closeSideBar}
+            className={router.pathname == '/' ? 'current-action' : 'actions'}
+          >
+            Vortex channel open
+          </a>
+        </Link>
+      )}
+      {selectedCoordinator.transactionTypes?.includes('OnChain') && (
+        <Link href="/collaborativetransaction">
+          <a
+            onClick={closeSideBar}
+            className={
+              router.pathname == '/collaborativetransaction'
+                ? 'current-action'
+                : 'actions'
+            }
+          >
+            Collaborative transaction
+          </a>
+        </Link>
+      )}
     </>
   );
 };

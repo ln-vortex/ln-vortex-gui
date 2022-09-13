@@ -1,6 +1,5 @@
 import Vortex from '../assets/vortex.svg';
 import Link from 'next/link';
-import HamburgerMenu, { Links } from './HamburgerMenu';
 
 export default function Header() {
   return (

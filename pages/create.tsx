@@ -77,7 +77,7 @@ export default function Create() {
       setQueueCoinsError(data.error);
       setQueueCoinsLoading(false);
     } else {
-      router.push('/');
+      router.push('/lightning');
     }
   };
 

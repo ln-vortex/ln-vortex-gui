@@ -8,6 +8,7 @@ export default async function handler(req, res) {
         jsonrpc: '2.0',
         method: 'cancelcoins',
         id: +new Date(),
+        params: req.body.params,
       },
       {
         auth: {
@@ -17,7 +18,11 @@ export default async function handler(req, res) {
       }
     )
     .then(({ data }) => {
-      res.status(200).json(data);
+      if (data.error) {
+        res.status(400).json(data);
+      } else {
+        res.status(200).json(data);
+      }
     })
     .catch(({ response }) => {
       res.status(400).json(response.data);

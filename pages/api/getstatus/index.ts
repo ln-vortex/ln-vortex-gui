@@ -8,6 +8,7 @@ export default async function handler(req, res) {
         jsonrpc: '2.0',
         method: 'getstatus',
         id: +new Date(),
+        params: req.query,
       },
       {
         auth: {

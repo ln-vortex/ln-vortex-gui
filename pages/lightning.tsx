@@ -4,12 +4,24 @@ import { useRouter } from 'next/router';
 import Status from '../components/Status';
 import InputsScheduled from '../components/InputsScheduled';
 import { useState } from 'react';
+import { validCoordinator } from '../utils/validator';
+import Unsupported from '../components/Unsupported';
+import { fetcher } from '../utils/convertor';
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+const transactionType = 'ChannelOpen';
 
-export default function Index() {
+export default function Index({ coordinatorName, coordinator }) {
+  if (!validCoordinator(transactionType, coordinator)) {
+    return (
+      <Unsupported
+        coordinatorName={coordinatorName}
+        transactionType={transactionType}
+      />
+    );
+  }
+
   const { data: statusData, error: statusError } = useSWR(
-    '/api/lightningstatus',
+    `/api/getstatus?coordinator=${coordinatorName}`,
     fetcher
   );
   const { data: channelData, error: channelError } = useSWR(
@@ -26,13 +38,22 @@ export default function Index() {
     setCancelCoinsError('');
     setCancelCoinsLoading(true);
 
-    const response = await fetch('/api/cancelcoins');
+    const params = {
+      coordinator: coordinatorName,
+    };
+    const response = await fetch('/api/cancelcoins', {
+      method: 'POST',
+      body: JSON.stringify({ params }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     const data = await response.json();
 
     if (data.error) {
       setCancelCoinsError(data.error);
     } else {
-      mutate('/api/status');
+      mutate(`/api/getstatus?coordinator=${coordinatorName}`);
     }
 
     setCancelCoinsLoading(false);
@@ -78,7 +99,10 @@ export default function Index() {
           <div style={{ textAlign: 'center' }}>
             <button
               onClick={() => {
-                router.push('/create');
+                router.push({
+                  pathname: '/create',
+                  query: { coordinator: coordinatorName },
+                });
               }}
             >
               CREATE NEW CHANNEL

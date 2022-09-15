@@ -3,15 +3,27 @@ import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import UTXOTable from '../components/UTXOTable';
 import SatsSelected from '../components/SatsSelected';
+import { fetcher } from '../utils/convertor';
+import { validCoordinator } from '../utils/validator';
+import Unsupported from '../components/Unsupported';
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+const transactionType = 'OnChain';
 
-export default function Create() {
-  const { data: utxoList, error: utxoError } = useSWR('/api/utxos', fetcher);
-  const { data: status, error: statusError } = useSWR(
-    '/api/onchainstatus',
+export default function Create({ coordinatorName, coordinator }) {
+  if (!validCoordinator(transactionType, coordinator)) {
+    return (
+      <Unsupported
+        coordinatorName={coordinatorName}
+        transactionType={transactionType}
+      />
+    );
+  }
+
+  const { data: statusData, error: statusError } = useSWR(
+    `/api/getstatus?coordinator=${coordinatorName}`,
     fetcher
   );
+  const { data: utxoList, error: utxoError } = useSWR('/api/utxos', fetcher);
   const [checkedState, setCheckedState] = useState<Array<boolean> | undefined>(
     undefined
   );
@@ -54,7 +66,7 @@ export default function Create() {
     });
 
     const params = {
-      coordinator: status.name,
+      coordinator: coordinatorName,
       address: address, // optional
       outpoints: selectedOutpoints,
     };
@@ -73,15 +85,19 @@ export default function Create() {
       setQueueCoinsError(data.error);
       setQueueCoinsLoading(false);
     } else {
-      router.push('/collaborativetransaction');
+      router.push({
+        pathname: '/collaborativetransaction',
+        query: { coordinator: coordinatorName },
+      });
     }
   };
 
   const queueTransactionEnabled = () =>
-    satsSelected >= status.round.amount + status.round.coordinatorFee;
+    satsSelected >= statusData.round.amount + statusData.round.coordinatorFee;
 
   if (utxoError || statusError) return <div>Failed to load</div>;
-  if (!utxoList || !status || queueCoinsLoading) return <div>Loading...</div>;
+  if (!utxoList || !statusData || queueCoinsLoading)
+    return <div>Loading...</div>;
 
   return (
     <>
@@ -104,16 +120,18 @@ export default function Create() {
       />
       <br />
       <div>
-        {(status.round.amount + status.round.coordinatorFee).toLocaleString()}{' '}
+        {(
+          statusData.round.amount + statusData.round.coordinatorFee
+        ).toLocaleString()}{' '}
         sats required for collaborative transaction (
-        {status.round.amount.toLocaleString()} sat transaction +{' '}
-        {status.round.coordinatorFee.toLocaleString()} sat fee)
+        {statusData.round.amount.toLocaleString()} sat transaction +{' '}
+        {statusData.round.coordinatorFee.toLocaleString()} sat fee)
       </div>
       <br />
       <SatsSelected
         satsSelected={satsSelected}
         enabled={queueTransactionEnabled}
-        status={status}
+        status={statusData}
       />
       <br />
       <button disabled={!queueTransactionEnabled()} onClick={handleQueueCoins}>

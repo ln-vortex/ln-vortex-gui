@@ -4,9 +4,7 @@ import { AppProps } from 'next/app';
 import Layout from '../components/Layout';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
-import { convertQueryParamToString } from '../utils/convertor';
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import { convertQueryParamToString, fetcher } from '../utils/convertor';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();

@@ -1,6 +1,5 @@
 import useSWR from 'swr';
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import { fetcher } from '../utils/convertor';
 
 export default function Index({ coordinatorName }) {
   const { data: statusData, error: statusError } = useSWR(

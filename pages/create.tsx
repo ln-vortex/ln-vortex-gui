@@ -3,15 +3,27 @@ import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import UTXOTable from '../components/UTXOTable';
 import SatsSelected from '../components/SatsSelected';
+import { validCoordinator } from '../utils/validator';
+import Unsupported from '../components/Unsupported';
+import { fetcher } from '../utils/convertor';
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+const transactionType = 'ChannelOpen';
 
-export default function Create() {
-  const { data: utxoList, error: utxoError } = useSWR('/api/utxos', fetcher);
-  const { data: status, error: statusError } = useSWR(
-    '/api/lightningstatus',
+export default function Create({ coordinatorName, coordinator }) {
+  if (!validCoordinator(transactionType, coordinator)) {
+    return (
+      <Unsupported
+        coordinatorName={coordinatorName}
+        transactionType={transactionType}
+      />
+    );
+  }
+
+  const { data: statusData, error: statusError } = useSWR(
+    `/api/getstatus?coordinator=${coordinatorName}`,
     fetcher
   );
+  const { data: utxoList, error: utxoError } = useSWR('/api/utxos', fetcher);
   const [checkedState, setCheckedState] = useState<Array<boolean> | undefined>(
     undefined
   );
@@ -57,7 +69,7 @@ export default function Create() {
     });
 
     const params = {
-      coordinator: status.name,
+      coordinator: coordinatorName,
       nodeId: nodePubkey,
       peerAddr: host, // optional
       outpoints: selectedOutpoints,
@@ -77,7 +89,10 @@ export default function Create() {
       setQueueCoinsError(data.error);
       setQueueCoinsLoading(false);
     } else {
-      router.push('/lightning');
+      router.push({
+        pathname: '/lightning',
+        query: { coordinator: coordinatorName },
+      });
     }
   };
 
@@ -85,22 +100,23 @@ export default function Create() {
     if (utxosSelected.length != 1) return false;
     else if (
       utxosSelected[0].anonSet > 1 &&
-      utxosSelected[0].amount == status.round.amount
+      utxosSelected[0].amount == statusData.round.amount
     )
       return true;
     else return false;
   };
 
   const createChannelEnabled = () => {
-    let roundAmount = status.round.amount;
+    let roundAmount = statusData.round.amount;
     if (!zeroFees()) {
-      roundAmount += status.round.coordinatorFee;
+      roundAmount += statusData.round.coordinatorFee;
     }
     return satsSelected >= roundAmount;
   };
 
-  if (utxoError || statusError) return <div>Failed to load</div>;
-  if (!utxoList || !status || queueCoinsLoading) return <div>Loading...</div>;
+  if (statusError || utxoError) return <div>Failed to load</div>;
+  if (!statusData || !utxoList || queueCoinsLoading)
+    return <div>Loading...</div>;
 
   return (
     <>
@@ -127,15 +143,18 @@ export default function Create() {
       />
       <br />
       <div>
-        {(status.round.amount + status.round.coordinatorFee).toLocaleString()}{' '}
-        sats required for Vortex channel ({status.round.amount.toLocaleString()}{' '}
-        sat channel + {status.round.coordinatorFee.toLocaleString()} sat fee)
+        {(
+          statusData.round.amount + statusData.round.coordinatorFee
+        ).toLocaleString()}{' '}
+        sats required for Vortex channel (
+        {statusData.round.amount.toLocaleString()} sat channel +{' '}
+        {statusData.round.coordinatorFee.toLocaleString()} sat fee)
       </div>
       <br />
       <SatsSelected
         satsSelected={satsSelected}
         enabled={createChannelEnabled}
-        status={status}
+        status={statusData}
       />
       <br />
       <button

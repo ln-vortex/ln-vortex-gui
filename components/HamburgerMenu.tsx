@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { slide as Menu } from 'react-burger-menu';
 
-const HamburgerMenu = ({ statusData }) => {
+const HamburgerMenu = ({ coordinatorName, statusData }) => {
   const [isOpen, setOpen] = useState(false);
 
   const handleIsOpen = () => {
@@ -23,7 +23,11 @@ const HamburgerMenu = ({ statusData }) => {
         onOpen={handleIsOpen}
         onClose={handleIsOpen}
       >
-        <Links closeSideBar={closeSideBar} statusData={statusData} />
+        <Links
+          closeSideBar={closeSideBar}
+          coordinatorName={coordinatorName}
+          statusData={statusData}
+        />
       </Menu>
     </div>
   );
@@ -44,10 +48,13 @@ const HamburgerIcon = () => (
   </div>
 );
 
-export const Links = ({ closeSideBar, statusData }) => {
+export const Links = ({ closeSideBar, coordinatorName, statusData }) => {
   const router = useRouter();
-  const [selectedCoordinatorIndex, setSelectedCoordinatorIndex] = useState(0);
-  const selectedCoordinator = statusData[selectedCoordinatorIndex][1];
+  const coordinatorNames = Object.keys(statusData);
+
+  const [selectedCoordinatorName, setSelectedCoordinatorName] =
+    useState(coordinatorName);
+  const selectedCoordinator = statusData[selectedCoordinatorName];
 
   return (
     <>
@@ -62,13 +69,14 @@ export const Links = ({ closeSideBar, statusData }) => {
       <select
         name="coordinators"
         id="coordinators"
+        value={selectedCoordinatorName}
         onChange={(e) => {
-          setSelectedCoordinatorIndex(e.target.selectedIndex);
+          setSelectedCoordinatorName(e.target.value);
         }}
         style={{ marginBottom: '24px' }}
       >
-        {statusData.map((coordinator, index) => (
-          <option key={index}>{coordinator[0]}</option>
+        {coordinatorNames.map((coordinator, index) => (
+          <option key={index}>{coordinator}</option>
         ))}
       </select>
       <div

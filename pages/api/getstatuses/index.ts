@@ -17,9 +17,7 @@ export default async function handler(req, res) {
       }
     )
     .then(({ data }) => {
-      const result = data.result;
-      const statusArray = Object.keys(result).map((key) => [key, result[key]]);
-      res.status(200).json(statusArray);
+      res.status(200).json(data.result);
     })
     .catch(({ response }) => {
       res.status(400).json(response.data);

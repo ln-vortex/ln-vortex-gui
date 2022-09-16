@@ -5,7 +5,7 @@ export default function InputsScheduled({ inputs }) {
         <li key={index}>
           <br />
           <div id="listitem-title">
-            <span>{input.outPoint}</span>
+            <span style={{ float: 'left' }}>{input.outPoint}</span>
           </div>
           <div id="listitem-details">
             <div className="bold-text">Amount</div>

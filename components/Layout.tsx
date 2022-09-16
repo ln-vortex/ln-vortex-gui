@@ -10,7 +10,7 @@ export default function Layout({ children, coordinatorName, statusData }) {
         statusData={statusData}
       />
       <div id="wrapper">
-        <Header />
+        <Header coordinatorName={coordinatorName} />
         <main>{children}</main>
         <Footer />
       </div>

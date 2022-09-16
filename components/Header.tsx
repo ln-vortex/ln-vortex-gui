@@ -1,10 +1,10 @@
 import Vortex from '../assets/vortex.svg';
 import Link from 'next/link';
 
-export default function Header() {
+export default function Header({ coordinatorName }) {
   return (
     <div>
-      <Link href="/">
+      <Link href={`/?coordinator=${coordinatorName}`}>
         <a
           className="header"
           style={{

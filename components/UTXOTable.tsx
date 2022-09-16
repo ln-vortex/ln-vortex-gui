@@ -1,7 +1,7 @@
 export default function UTXOTable({
   utxoList,
-  checkedState,
-  handleOnChange,
+  checkedState = [],
+  handleOnChange = (index: number) => {},
   selectable = true,
 }) {
   const truncate = (input) =>

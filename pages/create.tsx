@@ -81,7 +81,7 @@ export default function Create({ coordinatorName, coordinator }) {
       setQueueCoinsLoading(false);
     } else {
       router.push({
-        pathname: '/lightning',
+        pathname: '/',
         query: { coordinator: coordinatorName },
       });
     }

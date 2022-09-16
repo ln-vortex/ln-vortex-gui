@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { slide as Menu } from 'react-burger-menu';
+import SupportedTransactionTypes from './SupportedTransactionTypes';
 
 const HamburgerMenu = ({ coordinatorName, statusData }) => {
   const [isOpen, setOpen] = useState(false);
@@ -87,30 +88,11 @@ export const Links = ({ closeSideBar, coordinatorName, statusData }) => {
       >
         Supported Transaction Types:
       </div>
-      {selectedCoordinator.transactionTypes?.includes('ChannelOpen') && (
-        <Link href="/">
-          <a
-            onClick={closeSideBar}
-            className={router.pathname == '/' ? 'current-action' : 'actions'}
-          >
-            Vortex channel open
-          </a>
-        </Link>
-      )}
-      {selectedCoordinator.transactionTypes?.includes('OnChain') && (
-        <Link href="/collaborativetransaction">
-          <a
-            onClick={closeSideBar}
-            className={
-              router.pathname == '/collaborativetransaction'
-                ? 'current-action'
-                : 'actions'
-            }
-          >
-            Collaborative transaction
-          </a>
-        </Link>
-      )}
+      <SupportedTransactionTypes
+        coordinator={selectedCoordinator}
+        coordinatorName={selectedCoordinatorName}
+        onClick={closeSideBar}
+      />
     </>
   );
 };

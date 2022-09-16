@@ -77,7 +77,7 @@ export default function Create({ coordinatorName, coordinator }) {
       setQueueCoinsLoading(false);
     } else {
       router.push({
-        pathname: '/collaborativetransaction',
+        pathname: '/',
         query: { coordinator: coordinatorName },
       });
     }

@@ -11,15 +11,6 @@ import Unsupported from '../components/Unsupported';
 const transactionType = 'OnChain';
 
 export default function Index({ coordinatorName, coordinator }) {
-  if (!validCoordinator(transactionType, coordinator)) {
-    return (
-      <Unsupported
-        coordinatorName={coordinatorName}
-        transactionType={transactionType}
-      />
-    );
-  }
-
   const { data: statusData, error: statusError } = useSWR(
     `/api/getstatus?coordinator=${coordinatorName}`,
     fetcher
@@ -55,6 +46,14 @@ export default function Index({ coordinatorName, coordinator }) {
     setCancelCoinsLoading(false);
   };
 
+  if (!validCoordinator(transactionType, coordinator)) {
+    return (
+      <Unsupported
+        coordinatorName={coordinatorName}
+        transactionType={transactionType}
+      />
+    );
+  }
   if (statusError || utxoError) return <div>Failed to load</div>;
   if (!statusData || !utxoList || cancelCoinsLoading)
     return <div>Loading...</div>;

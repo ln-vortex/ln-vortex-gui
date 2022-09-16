@@ -10,15 +10,6 @@ import { fetcher } from '../utils/convertor';
 const transactionType = 'ChannelOpen';
 
 export default function Create({ coordinatorName, coordinator }) {
-  if (!validCoordinator(transactionType, coordinator)) {
-    return (
-      <Unsupported
-        coordinatorName={coordinatorName}
-        transactionType={transactionType}
-      />
-    );
-  }
-
   const { data: statusData, error: statusError } = useSWR(
     `/api/getstatus?coordinator=${coordinatorName}`,
     fetcher
@@ -114,6 +105,14 @@ export default function Create({ coordinatorName, coordinator }) {
     return satsSelected >= roundAmount;
   };
 
+  if (!validCoordinator(transactionType, coordinator)) {
+    return (
+      <Unsupported
+        coordinatorName={coordinatorName}
+        transactionType={transactionType}
+      />
+    );
+  }
   if (statusError || utxoError) return <div>Failed to load</div>;
   if (!statusData || !utxoList || queueCoinsLoading)
     return <div>Loading...</div>;

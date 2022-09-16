@@ -1,4 +1,4 @@
-export default function Status({ statusData }) {
+export default function Status({ statusData, coordinatorName }) {
   const round = statusData.round;
   const roundTime = new Date(round.time * 1000);
 
@@ -6,6 +6,8 @@ export default function Status({ statusData }) {
     <li>
       <br />
       <div id="listitem-details">
+        <div className="bold-text">Name</div>
+        <div>{coordinatorName}</div>
         <div className="bold-text">Status</div>
         <div>{statusData.status}</div>
         {statusData.nodeIdOpt && (

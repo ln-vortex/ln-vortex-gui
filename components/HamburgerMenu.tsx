@@ -50,6 +50,7 @@ const HamburgerIcon = () => (
 );
 
 export const Links = ({ closeSideBar, coordinatorName, statusData }) => {
+  const router = useRouter();
   const coordinatorNames = statusData.map(function (coordinator) {
     return coordinator[0];
   });
@@ -74,6 +75,11 @@ export const Links = ({ closeSideBar, coordinatorName, statusData }) => {
         value={selectedCoordinatorName}
         onChange={(e) => {
           setSelectedCoordinatorName(e.target.value);
+          router.push({
+            pathname: '/',
+            query: { coordinator: e.target.value },
+          });
+          closeSideBar();
         }}
         style={{ marginBottom: '24px' }}
       >

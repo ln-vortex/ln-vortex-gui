@@ -50,12 +50,13 @@ const HamburgerIcon = () => (
 );
 
 export const Links = ({ closeSideBar, coordinatorName, statusData }) => {
-  const router = useRouter();
-  const coordinatorNames = Object.keys(statusData);
-
+  const coordinatorNames = statusData.map(function (coordinator) {
+    return coordinator[0];
+  });
   const [selectedCoordinatorName, setSelectedCoordinatorName] =
     useState(coordinatorName);
-  const selectedCoordinator = statusData[selectedCoordinatorName];
+  const coordinatorIndex = coordinatorNames.indexOf(selectedCoordinatorName);
+  const selectedCoordinator = statusData[coordinatorIndex][1];
 
   return (
     <>

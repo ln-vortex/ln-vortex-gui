@@ -18,7 +18,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   if (!statusData) return <div>Loading coordinators...</div>;
 
   const coordinatorString = convertQueryParamToString(coordinator);
-  const coordinatorNames = Object.keys(statusData);
+  const coordinatorNames = statusData.map(function (coordinator) {
+    return coordinator[0];
+  });
 
   if (coordinatorNames.length === 0) return <div>No coordinators found</div>;
   if (coordinatorString && !coordinatorNames.includes(coordinatorString))

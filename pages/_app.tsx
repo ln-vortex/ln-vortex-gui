@@ -23,18 +23,20 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   if (coordinatorNames.length === 0) return <div>No coordinators found</div>;
-  if (coordinatorString && !coordinatorNames.includes(coordinatorString))
-    return <div>The selected coordinator is not connected</div>;
 
   const coordinatorName = coordinatorString
     ? coordinatorString
     : coordinatorNames[0];
+  const coordinatorIndex = coordinatorNames.indexOf(coordinatorName);
+
+  if (coordinatorString && coordinatorIndex === -1)
+    return <div>The selected coordinator is not connected</div>;
 
   return (
     <Layout coordinatorName={coordinatorName} statusData={statusData}>
       <Component
         coordinatorName={coordinatorName}
-        coordinator={statusData[coordinatorName]}
+        coordinator={statusData[coordinatorIndex][1]}
         statusData={statusData}
         {...pageProps}
       />

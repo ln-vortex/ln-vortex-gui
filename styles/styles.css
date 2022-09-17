@@ -233,7 +233,7 @@ button[disabled] {
 
 /* Position and sizing of burger button */
 .bm-burger-button {
-  position: fixed;
+  position: absolute;
   width: 36px;
   height: 36px;
   left: 24px;

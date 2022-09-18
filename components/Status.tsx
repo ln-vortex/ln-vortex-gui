@@ -10,6 +10,49 @@ export default function Status({ statusData, coordinatorName }) {
         <div>{coordinatorName}</div>
         <div className="bold-text">Status</div>
         <div>{statusData.status}</div>
+        {round.status && (
+          <>
+            <div className="bold-text">Status Message</div>
+            <div>{round.status}</div>
+          </>
+        )}
+        <div className="bold-text" style={{ marginBottom: 20 }}>
+          Next round time
+        </div>
+        <div>{roundTime.toUTCString()}</div>
+
+        <div className="bold-text" style={{ textDecoration: 'underline' }}>
+          Round Details
+        </div>
+        <div>
+          <br />
+        </div>
+        <div className="bold-text">Amount</div>
+        <div>{round.amount.toLocaleString()} sats</div>
+        <div className="bold-text">Fee</div>
+        <div>{round.coordinatorFee.toLocaleString()} sats</div>
+        <div className="bold-text">Max participants</div>
+        <div>{round.maxPeers}</div>
+        <div className="bold-text">Input Type</div>
+        <div>{round.inputType}</div>
+        <div className="bold-text">Output Type</div>
+        <div>{round.outputType}</div>
+        <div className="bold-text">Change Type</div>
+        <div>{round.changeType}</div>
+
+        {(statusData.nodeIdOpt || statusData.addressOpt) && (
+          <>
+            <div
+              className="bold-text"
+              style={{ textDecoration: 'underline', marginTop: 20 }}
+            >
+              Round Inputs
+            </div>
+            <div>
+              <br />
+            </div>
+          </>
+        )}
         {statusData.nodeIdOpt && (
           <>
             <div className="bold-text">Node Pubkey</div>
@@ -28,14 +71,6 @@ export default function Status({ statusData, coordinatorName }) {
             <div>{statusData.addressOpt}</div>
           </>
         )}
-        <div className="bold-text">Next round time</div>
-        <div>{roundTime.toUTCString()}</div>
-        <div className="bold-text">Amount</div>
-        <div>{round.amount.toLocaleString()} sats</div>
-        <div className="bold-text">Fee</div>
-        <div>{round.coordinatorFee.toLocaleString()} sats</div>
-        <div className="bold-text">Max participants</div>
-        <div>{round.maxPeers}</div>
       </div>
     </li>
   );

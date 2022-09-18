@@ -4,7 +4,11 @@ import { useRouter } from 'next/router';
 import UTXOTable from '../components/UTXOTable';
 import SatsSelected from '../components/SatsSelected';
 import { fetcher } from '../utils/convertor';
-import { validCoordinator } from '../utils/validator';
+import {
+  transactionEnabled,
+  validCoordinator,
+  zeroFeeCheck,
+} from '../utils/validator';
 import Unsupported from '../components/Unsupported';
 import InputType from '../components/InputType';
 
@@ -89,23 +93,14 @@ export default function CollaborativeTransaction({
     }
   };
 
-  const zeroFees = () => {
-    if (utxosSelected.length != 1) return false;
-    else if (
-      utxosSelected[0].anonSet > 1 &&
-      utxosSelected[0].amount == statusData.round.amount
-    )
-      return true;
-    else return false;
-  };
-
-  const queueTransactionEnabled = () => {
-    let roundAmount = statusData.round.amount;
-    if (!zeroFees()) {
-      roundAmount += statusData.round.coordinatorFee;
-    }
-    return satsSelected >= roundAmount;
-  };
+  const zeroFees = () => zeroFeeCheck(utxosSelected, statusData?.round.amount);
+  const queueTransactionEnabled = () =>
+    transactionEnabled(
+      statusData?.round.amount,
+      zeroFees(),
+      statusData?.round.coordinatorFee,
+      satsSelected
+    );
 
   if (!validCoordinator(transactionType, coordinator)) {
     return (

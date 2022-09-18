@@ -83,14 +83,18 @@ export default function Index({ coordinatorName }) {
             coordinator={statusData}
             coordinatorName={coordinatorName}
           />
-          <h2>Channels</h2>
-          <ul className="scrollable">
-            {channelData.map((c, i) => (
-              <>
-                <Channel key={i} channel={c} />
-              </>
-            ))}
-          </ul>
+          {channelData.length > 0 && (
+            <>
+              <h2>Channels</h2>
+              <ul className="scrollable">
+                {channelData.map((c, i) => (
+                  <>
+                    <Channel key={i} channel={c} />
+                  </>
+                ))}
+              </ul>
+            </>
+          )}
         </>
       )}
     </>

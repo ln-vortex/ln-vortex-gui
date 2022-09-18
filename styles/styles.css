@@ -11,6 +11,7 @@ main {
 h2 {
   color: white;
   font-weight: 400;
+  margin-top: 25px;
 }
 
 h3 {
@@ -265,7 +266,6 @@ button[disabled] {
 .bm-menu {
   background: #13132f;
   padding: 2.5em 1.5em 0;
-  font-size: 1.15em;
 }
 
 .bm-menu-wrap {
@@ -283,18 +283,20 @@ button[disabled] {
   text-decoration: none;
 }
 
-.current-action {
-  color: white;
-  margin-bottom: 4px;
-}
-
 .actions {
-  color: rgba(255, 255, 255, 0.7);
   margin-bottom: 4px;
+  text-decoration: none;
+  font-size: 18px;
 }
 
 .actions:hover {
-  color: white;
+  text-decoration: underline;
 }
 
 /* burger menu end */
+
+#menu-item-header {
+  font-size: 20px;
+  color: white;
+  margin-bottom: 6px;
+}

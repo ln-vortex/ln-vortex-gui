@@ -6,34 +6,22 @@ export default function SupportedTransactionTypes({
   coordinatorName,
   onClick = () => {},
 }) {
-  const router = useRouter();
-
   return (
-    <>
+    <div style={{ textDecoration: 'none' }}>
       {coordinator.transactionTypes?.includes('ChannelOpen') && (
         <Link href={`/create?coordinator=${coordinatorName}`}>
-          <a
-            onClick={onClick}
-            className={
-              router.pathname == '/create' ? 'current-action' : 'actions'
-            }
-          >
+          <a onClick={onClick} className={'actions'}>
             Vortex channel open
           </a>
         </Link>
       )}
       {coordinator.transactionTypes?.includes('OnChain') && (
         <Link href={`/onchain?coordinator=${coordinatorName}`}>
-          <a
-            onClick={onClick}
-            className={
-              router.pathname == '/onchain' ? 'current-action' : 'actions'
-            }
-          >
+          <a onClick={onClick} className={'actions'}>
             Collaborative transaction
           </a>
         </Link>
       )}
-    </>
+    </div>
   );
 }

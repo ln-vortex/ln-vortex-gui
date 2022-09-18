@@ -61,14 +61,7 @@ export const Links = ({ closeSideBar, coordinatorName, statusData }) => {
 
   return (
     <>
-      <div
-        style={{
-          color: 'white',
-          marginBottom: '6px',
-        }}
-      >
-        Coordinator:
-      </div>
+      <div id="menu-item-header">Coordinator</div>
       <select
         name="coordinators"
         id="coordinators"
@@ -87,14 +80,7 @@ export const Links = ({ closeSideBar, coordinatorName, statusData }) => {
           <option key={index}>{coordinator}</option>
         ))}
       </select>
-      <div
-        style={{
-          color: 'white',
-          marginBottom: '6px',
-        }}
-      >
-        Supported Transaction Types:
-      </div>
+      <div id="menu-item-header">Supported Actions</div>
       <SupportedTransactionTypes
         coordinator={selectedCoordinator}
         coordinatorName={selectedCoordinatorName}

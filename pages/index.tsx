@@ -78,7 +78,7 @@ export default function Index({ coordinatorName }) {
       )}
       {!statusData.inputs && (
         <>
-          <h2>Supported Transaction Types</h2>
+          <h2>Supported Actions</h2>
           <SupportedTransactionTypes
             coordinator={statusData}
             coordinatorName={coordinatorName}

@@ -10,7 +10,7 @@ import InputType from '../components/InputType';
 
 const transactionType = 'ChannelOpen';
 
-export default function Create({ coordinatorName, coordinator }) {
+export default function CreateChannel({ coordinatorName, coordinator }) {
   const { data: statusData, error: statusError } = useSWR(
     `/api/getstatus?coordinator=${coordinatorName}`,
     fetcher

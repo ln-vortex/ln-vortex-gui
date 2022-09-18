@@ -10,7 +10,10 @@ import InputType from '../components/InputType';
 
 const transactionType = 'OnChain';
 
-export default function OnChain({ coordinatorName, coordinator }) {
+export default function CollaborativeTransaction({
+  coordinatorName,
+  coordinator,
+}) {
   const { data: statusData, error: statusError } = useSWR(
     `/api/getstatus?coordinator=${coordinatorName}`,
     fetcher

@@ -22,6 +22,12 @@ export default function Status({ statusData, coordinatorName }) {
             <div>{statusData.peerAddrOpt}</div>
           </>
         )}
+        {statusData.addressOpt && (
+          <>
+            <div className="bold-text">Send to address</div>
+            <div>{statusData.addressOpt}</div>
+          </>
+        )}
         <div className="bold-text">Next round time</div>
         <div>{roundTime.toUTCString()}</div>
         <div className="bold-text">Amount</div>

@@ -114,6 +114,7 @@ export default function Create({ coordinatorName, coordinator }) {
       />
     );
   }
+  if (coordinator.inputs) return <div>Coins already queued</div>;
   if (statusError || utxoError) return <div>Failed to load</div>;
   if (!statusData || !utxoList || queueCoinsLoading)
     return <div>Loading...</div>;

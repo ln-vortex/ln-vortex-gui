@@ -10,7 +10,7 @@ import InputType from '../components/InputType';
 
 const transactionType = 'OnChain';
 
-export default function Create({ coordinatorName, coordinator }) {
+export default function OnChain({ coordinatorName, coordinator }) {
   const { data: statusData, error: statusError } = useSWR(
     `/api/getstatus?coordinator=${coordinatorName}`,
     fetcher
@@ -19,49 +19,51 @@ export default function Create({ coordinatorName, coordinator }) {
   const [checkedState, setCheckedState] = useState<Array<boolean> | undefined>(
     undefined
   );
+  const [utxosSelected, setUtxosSelected] = useState<Array<any>>([]);
   const [satsSelected, setSatsSelected] = useState(0);
   const [address, setAddress] = useState('');
   const [queueCoinsError, setQueueCoinsError] = useState('');
   const [queueCoinsLoading, setQueueCoinsLoading] = useState(false);
   const router = useRouter();
 
-  const handleOnChange = (position) => {
+  const handleOnChange = (position: number) => {
+    const changedUtxo = utxoList[position];
     const initialCheckedState = !checkedState
       ? new Array(utxoList.length).fill(false)
       : checkedState;
 
-    const updatedCheckedState = initialCheckedState.map((item, index) =>
-      index === position ? !item : item
+    if (initialCheckedState[position]) {
+      setUtxosSelected(
+        utxosSelected.filter(function (utxo) {
+          return utxo.outPoint !== changedUtxo.outPoint;
+        })
+      );
+      setSatsSelected(satsSelected - changedUtxo.amount);
+    } else {
+      utxosSelected.push(changedUtxo);
+      setSatsSelected(satsSelected + changedUtxo.amount);
+    }
+
+    setCheckedState(
+      initialCheckedState.map((item, index) =>
+        index === position ? !item : item
+      )
     );
-
-    setCheckedState(updatedCheckedState);
-
-    const totalSats = updatedCheckedState.reduce((sum, currentState, index) => {
-      if (currentState === true) {
-        return sum + utxoList[index].amount;
-      }
-      return sum;
-    }, 0);
-
-    setSatsSelected(totalSats);
   };
 
   const handleQueueCoins = async () => {
     setQueueCoinsError('');
     setQueueCoinsLoading(true);
 
-    const allOutpoints = utxoList.map(function (item) {
+    const selectedOutpoints = utxosSelected.map(function (item) {
       return item.outPoint;
     });
-    const selectedOutpoints = allOutpoints.filter(function (item, index) {
-      return checkedState[index];
-    });
 
-    const params = {
+    const params: any = {
       coordinator: coordinatorName,
-      address: address, // optional
       outpoints: selectedOutpoints,
     };
+    if (address) params.address = address;
 
     const response = await fetch('/api/queuecoins', {
       method: 'POST',
@@ -84,8 +86,23 @@ export default function Create({ coordinatorName, coordinator }) {
     }
   };
 
-  const queueTransactionEnabled = () =>
-    satsSelected >= statusData.round.amount + statusData.round.coordinatorFee;
+  const zeroFees = () => {
+    if (utxosSelected.length != 1) return false;
+    else if (
+      utxosSelected[0].anonSet > 1 &&
+      utxosSelected[0].amount == statusData.round.amount
+    )
+      return true;
+    else return false;
+  };
+
+  const queueTransactionEnabled = () => {
+    let roundAmount = statusData.round.amount;
+    if (!zeroFees()) {
+      roundAmount += statusData.round.coordinatorFee;
+    }
+    return satsSelected >= roundAmount;
+  };
 
   if (!validCoordinator(transactionType, coordinator)) {
     return (

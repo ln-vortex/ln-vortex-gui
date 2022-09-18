@@ -60,12 +60,12 @@ export default function Create({ coordinatorName, coordinator }) {
       return item.outPoint;
     });
 
-    const params = {
+    const params: any = {
       coordinator: coordinatorName,
       nodeId: nodePubkey,
-      peerAddr: host, // optional
       outpoints: selectedOutpoints,
     };
+    if (host) params.peerAddr = host;
 
     const response = await fetch('/api/queuecoins', {
       method: 'POST',

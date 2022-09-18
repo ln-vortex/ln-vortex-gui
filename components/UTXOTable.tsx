@@ -1,6 +1,7 @@
 export default function UTXOTable({
   utxoList,
   checkedState = [],
+  coordinator,
   handleOnChange = (index: number) => {},
   selectable = true,
 }) {
@@ -21,12 +22,20 @@ export default function UTXOTable({
       </thead>
       <tbody>
         {utxoList.map(
-          ({ outPoint, amount, address, anonSet, confirmed }, index) => {
+          (
+            { outPoint, amount, address, anonSet, confirmed, scriptType },
+            index
+          ) => {
+            const disabled = coordinator.round.inputType !== scriptType;
             return (
               <tr
                 key={index}
                 className={
-                  checkedState && checkedState[index] ? 'selected' : ''
+                  disabled
+                    ? 'disabled'
+                    : checkedState && checkedState[index]
+                    ? 'selected'
+                    : ''
                 }
               >
                 {selectable && (
@@ -37,6 +46,7 @@ export default function UTXOTable({
                       name={outPoint}
                       value={outPoint}
                       checked={checkedState ? checkedState[index] : false}
+                      disabled={disabled}
                       onChange={() => handleOnChange(index)}
                     />
                   </th>

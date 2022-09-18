@@ -6,6 +6,7 @@ import SatsSelected from '../components/SatsSelected';
 import { validCoordinator } from '../utils/validator';
 import Unsupported from '../components/Unsupported';
 import { fetcher } from '../utils/convertor';
+import InputType from '../components/InputType';
 
 const transactionType = 'ChannelOpen';
 
@@ -135,9 +136,11 @@ export default function Create({ coordinatorName, coordinator }) {
       />
       <div>The IP address / Tor address of the target node.</div>
       <h2>CHOOSE INPUTS</h2>
+      <InputType coordinator={coordinator} />
       <UTXOTable
         utxoList={utxoList}
         checkedState={checkedState}
+        coordinator={coordinator}
         handleOnChange={handleOnChange}
       />
       <br />

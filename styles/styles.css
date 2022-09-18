@@ -59,6 +59,10 @@ input[type='checkbox']:focus {
   outline: none !important;
 }
 
+input[type='checkbox']:disabled {
+  border-color: rgba(235, 235, 228, 0.5);
+}
+
 input[type='text'] {
   width: 98%;
   height: 40px;
@@ -118,6 +122,11 @@ button[disabled] {
 .active {
   background-color: #9fe4fc;
   color: #13132f;
+}
+
+.disabled {
+  background-color: rgba(235, 235, 228, 0.2);
+  color: rgba(235, 235, 228, 0.5);
 }
 
 .selected {

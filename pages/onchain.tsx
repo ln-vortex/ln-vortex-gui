@@ -6,6 +6,7 @@ import SatsSelected from '../components/SatsSelected';
 import { fetcher } from '../utils/convertor';
 import { validCoordinator } from '../utils/validator';
 import Unsupported from '../components/Unsupported';
+import InputType from '../components/InputType';
 
 const transactionType = 'OnChain';
 
@@ -112,9 +113,11 @@ export default function Create({ coordinatorName, coordinator }) {
         from your wallet.
       </div>
       <h2>CHOOSE INPUTS</h2>
+      <InputType coordinator={coordinator} />
       <UTXOTable
         utxoList={utxoList}
         checkedState={checkedState}
+        coordinator={coordinator}
         handleOnChange={handleOnChange}
       />
       <br />

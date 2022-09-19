@@ -64,6 +64,14 @@ input[type='checkbox']:disabled {
   border-color: rgba(235, 235, 228, 0.5);
 }
 
+#requeue {
+  margin-left: 0px;
+}
+
+#checkbox-text {
+  vertical-align: 10px;
+}
+
 input[type='text'] {
   width: 98%;
   height: 40px;

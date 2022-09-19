@@ -71,6 +71,12 @@ export default function Status({ statusData, coordinatorName }) {
             <div>{statusData.addressOpt}</div>
           </>
         )}
+        {statusData.addressOpt && (
+          <>
+            <div className="bold-text">Requeue coins?</div>
+            <div>{statusData.requeue ? 'Yes' : 'No'}</div>
+          </>
+        )}
       </div>
     </li>
   );

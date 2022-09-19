@@ -31,6 +31,7 @@ export default function CollaborativeTransaction({
   const [address, setAddress] = useState('');
   const [queueCoinsError, setQueueCoinsError] = useState('');
   const [queueCoinsLoading, setQueueCoinsLoading] = useState(false);
+  const [requeue, setRequeue] = useState(false);
   const router = useRouter();
 
   const handleOnChange = (position: number) => {
@@ -69,6 +70,7 @@ export default function CollaborativeTransaction({
     const params: any = {
       coordinator: coordinatorName,
       outpoints: selectedOutpoints,
+      requeue: requeue,
     };
     if (address) params.address = address;
 
@@ -145,13 +147,22 @@ export default function CollaborativeTransaction({
         {statusData.round.amount.toLocaleString()} sat transaction +{' '}
         {statusData.round.coordinatorFee.toLocaleString()} sat fee)
       </div>
-      <br />
       <SatsSelected
         satsSelected={satsSelected}
         enabled={queueTransactionEnabled}
         status={statusData}
       />
-      <br />
+      <div style={{ marginBottom: '40px' }}>
+        <input
+          type="checkbox"
+          id="requeue"
+          checked={requeue}
+          onChange={() => setRequeue(!requeue)}
+        />
+        <label id="checkbox-text" htmlFor="requeue">
+          Free auto-requeue for subsequent rounds
+        </label>
+      </div>
       <button disabled={!queueTransactionEnabled()} onClick={handleQueueCoins}>
         QUEUE COLLABORATIVE TRANSACTION
       </button>

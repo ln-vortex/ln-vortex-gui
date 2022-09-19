@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
-    "lint": "^0.7.0",
     "ln-service": "^53.23.0",
     "next": "12.2.5",
     "react": "^18.2.0",

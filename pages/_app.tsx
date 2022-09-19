@@ -17,8 +17,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   if (statusError) return <div>Failed to load coordinators</div>;
   if (!statusData) return <div>Loading coordinators...</div>;
 
+  const filteredStatusData = statusData.filter(
+    (coordinator) => coordinator[1].status !== 'NoDetails'
+  );
   const coordinatorString = convertQueryParamToString(coordinator);
-  const coordinatorNames = statusData.map(function (coordinator) {
+  const coordinatorNames = filteredStatusData.map(function (coordinator) {
     return coordinator[0];
   });
 
@@ -33,11 +36,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     return <div>The selected coordinator is not connected</div>;
 
   return (
-    <Layout coordinatorName={coordinatorName} statusData={statusData}>
+    <Layout coordinatorName={coordinatorName} statusData={filteredStatusData}>
       <Component
         coordinatorName={coordinatorName}
-        coordinator={statusData[coordinatorIndex][1]}
-        statusData={statusData}
+        coordinator={filteredStatusData[coordinatorIndex][1]}
+        statusData={filteredStatusData}
         {...pageProps}
       />
     </Layout>

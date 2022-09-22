@@ -6,7 +6,7 @@ GUI for interacting with the [LnVortex client](https://github.com/ln-vortex/ln-v
 
 ### Configuration
 
-Install [node version 16.x or 18.x](https://nodejs.org/en/about/releases/).
+Install [node version 18.x](https://nodejs.org/en/about/releases/).
 
 Copy the `.env.sample` file to `.env.local` and update the values.
 

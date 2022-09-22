@@ -1,4 +1,17 @@
-# GUI for LnVortex
+<div>
+  <img src="docs/assets/ln-vortex-gui-light-mode.svg#gh-light-mode-only" alt="ln-vortex-gui">
+  <img src="docs/assets/ln-vortex-gui-dark-mode.svg#gh-dark-mode-only" alt="ln-vortex-gui">
+</div>
+
+---
+
+<br />
+
+<div>
+  <img src="docs/assets/home-screen.png" width="60%" alt="home screen">
+</div>
+
+<br />
 
 GUI for interacting with the [LnVortex client](https://github.com/ln-vortex/ln-vortex).
 

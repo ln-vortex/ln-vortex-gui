@@ -8,7 +8,7 @@
 <br />
 
 <div>
-  <img src="docs/assets/home-screen.png" width="60%" alt="home screen">
+  <img src="docs/assets/home-screen.png" alt="home screen">
 </div>
 
 <br />

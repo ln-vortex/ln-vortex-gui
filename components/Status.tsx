@@ -1,3 +1,5 @@
+import { scriptTypeToString } from '../utils/convertor';
+
 export default function Status({ statusData, coordinatorName }) {
   const round = statusData.round;
   const roundTime = new Date(round.time * 1000);
@@ -34,11 +36,11 @@ export default function Status({ statusData, coordinatorName }) {
         <div className="bold-text">Max participants</div>
         <div>{round.maxPeers}</div>
         <div className="bold-text">Input Type</div>
-        <div>{round.inputType}</div>
-        <div className="bold-text">Output Type</div>
-        <div>{round.outputType}</div>
+        <div>{scriptTypeToString(round.inputType)}</div>
         <div className="bold-text">Change Type</div>
-        <div>{round.changeType}</div>
+        <div>{scriptTypeToString(round.changeType)}</div>
+        <div className="bold-text">Output Type</div>
+        <div>{scriptTypeToString(round.outputType)}</div>
 
         {(statusData.nodeIdOpt || statusData.addressOpt) && (
           <>

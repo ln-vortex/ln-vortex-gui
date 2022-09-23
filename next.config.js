@@ -4,4 +4,5 @@ module.exports = {
     rpcUser: process.env.VORTEX_RPC_USER,
     rpcPassword: process.env.VORTEX_RPC_PASSWORD,
   },
+  output: 'standalone',
 };

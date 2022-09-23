@@ -10,6 +10,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <link rel="shortcut icon" href="/favicon.ico" />
           <link
             rel="preload"
             href="/fonts/IBMPlexMono-Regular.ttf"

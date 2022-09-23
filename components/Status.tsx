@@ -34,11 +34,11 @@ export default function Status({ statusData, coordinatorName }) {
         <div className="bold-text">Max participants</div>
         <div>{round.maxPeers}</div>
         <div className="bold-text">Input Type</div>
-        <div>{round.inputType}</div>
-        <div className="bold-text">Output Type</div>
-        <div>{round.outputType}</div>
+        <div>{scriptTypeToString(round.inputType)}</div>
         <div className="bold-text">Change Type</div>
-        <div>{round.changeType}</div>
+        <div>{scriptTypeToString(round.changeType)}</div>
+        <div className="bold-text">Output Type</div>
+        <div>{scriptTypeToString(round.outputType)}</div>
 
         {(statusData.nodeIdOpt || statusData.addressOpt) && (
           <>
@@ -80,4 +80,24 @@ export default function Status({ statusData, coordinatorName }) {
       </div>
     </li>
   );
+}
+
+
+function scriptTypeToString(scriptType: string): string {
+  switch (scriptType.toLowerCase()) {
+    case 'witness_v0_keyhash':
+      return 'P2WPKH';
+    case 'witness_v0_scripthash':
+      return 'P2WSH';
+    case 'witness_v1_taproot':
+      return 'Taproot';
+    case 'scripthash':
+      return 'P2SH';
+    case 'pubkeyhash':
+      return 'P2PKH';
+    case 'pubkey':
+      return 'P2PK';
+    default:
+      return scriptType;
+  }
 }

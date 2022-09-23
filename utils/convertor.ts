@@ -2,4 +2,23 @@ export const convertQueryParamToString = (param: string | string[]): string => {
   return Array.isArray(param) ? param[0] : param;
 };
 
+export function scriptTypeToString(scriptType: string): string {
+  switch (scriptType.toLowerCase()) {
+    case 'witness_v0_keyhash':
+      return 'P2WPKH (bc1q...)';
+    case 'witness_v0_scripthash':
+      return 'P2WSH (Lightning Channel)';
+    case 'witness_v1_taproot':
+      return 'Taproot (bc1p...)';
+    case 'scripthash':
+      return 'P2SH (3...)';
+    case 'pubkeyhash':
+      return 'P2PKH (1...)';
+    case 'pubkey':
+      return 'P2PK (Legacy)';
+    default:
+      return scriptType;
+  }
+}
+
 export const fetcher = (url) => fetch(url).then((res) => res.json());

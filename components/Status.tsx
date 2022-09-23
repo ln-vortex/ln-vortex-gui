@@ -1,3 +1,5 @@
+import { scriptTypeToString } from '../utils/convertor';
+
 export default function Status({ statusData, coordinatorName }) {
   const round = statusData.round;
   const roundTime = new Date(round.time * 1000);
@@ -80,24 +82,4 @@ export default function Status({ statusData, coordinatorName }) {
       </div>
     </li>
   );
-}
-
-
-function scriptTypeToString(scriptType: string): string {
-  switch (scriptType.toLowerCase()) {
-    case 'witness_v0_keyhash':
-      return 'P2WPKH';
-    case 'witness_v0_scripthash':
-      return 'P2WSH';
-    case 'witness_v1_taproot':
-      return 'Taproot';
-    case 'scripthash':
-      return 'P2SH';
-    case 'pubkeyhash':
-      return 'P2PKH';
-    case 'pubkey':
-      return 'P2PK';
-    default:
-      return scriptType;
-  }
 }

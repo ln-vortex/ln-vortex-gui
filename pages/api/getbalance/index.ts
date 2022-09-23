@@ -1,9 +1,14 @@
 import axios from 'axios';
+import {
+    rpcUrl,
+    rpcUser,
+    rpcPassword,
+} from '../../../utils/credentials';
 
 export default async function handler(req, res) {
   await axios
     .post(
-      process.env.rpcUrl,
+      rpcUrl(),
       {
         jsonrpc: '2.0',
         method: 'getbalance',
@@ -11,8 +16,8 @@ export default async function handler(req, res) {
       },
       {
         auth: {
-          username: process.env.rpcUser,
-          password: process.env.rpcPassword,
+          username: rpcUser(),
+          password: rpcPassword(),
         },
       }
     )

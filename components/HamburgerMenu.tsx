@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { slide as Menu } from 'react-burger-menu';
-import SupportedTransactionTypes from './SupportedTransactionTypes';
+import SupportedActions from './SupportedActions';
 
 const HamburgerMenu = ({ coordinatorName, statusData }) => {
   const [isOpen, setOpen] = useState(false);
@@ -81,7 +81,7 @@ export const Links = ({ closeSideBar, coordinatorName, statusData }) => {
         ))}
       </select>
       <div id="menu-item-header">Supported Actions</div>
-      <SupportedTransactionTypes
+      <SupportedActions
         coordinator={selectedCoordinator}
         coordinatorName={selectedCoordinatorName}
         onClick={closeSideBar}

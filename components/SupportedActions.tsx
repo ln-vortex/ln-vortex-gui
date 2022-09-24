@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
-export default function SupportedTransactionTypes({
+export default function SupportedActions({
   coordinator,
   coordinatorName,
   onClick = () => {},

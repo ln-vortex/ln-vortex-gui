@@ -4,7 +4,7 @@ import Status from '../components/Status';
 import InputsScheduled from '../components/InputsScheduled';
 import { useState } from 'react';
 import { fetcher } from '../utils/convertor';
-import SupportedTransactionTypes from '../components/SupportedTransactionTypes';
+import SupportedActionButtons from '../components/SupportedActionButtons';
 
 export default function Index({ coordinatorName }) {
   const { data: statusData, error: statusError } = useSWR(
@@ -79,7 +79,7 @@ export default function Index({ coordinatorName }) {
       {!statusData.inputs && (
         <>
           <h2>Supported Actions</h2>
-          <SupportedTransactionTypes
+          <SupportedActionButtons
             coordinator={statusData}
             coordinatorName={coordinatorName}
           />

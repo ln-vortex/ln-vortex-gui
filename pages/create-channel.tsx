@@ -19,7 +19,10 @@ export default function CreateChannel({ coordinatorName, coordinator }) {
     `/api/getstatus?coordinator=${coordinatorName}`,
     fetcher
   );
-  const { data: utxoList, error: utxoError } = useSWR('/api/utxos', fetcher);
+  const { data: utxoList, error: utxoError } = useSWR(
+    '/api/listutxos',
+    fetcher
+  );
   const [checkedState, setCheckedState] = useState<Array<boolean> | undefined>(
     undefined
   );

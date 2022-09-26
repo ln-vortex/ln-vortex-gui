@@ -14,7 +14,7 @@ const fetcher = async (url) => {
 export default function Channel() {
   const { query } = useRouter();
   const { data, error } = useSWR(
-    () => query.id && `/api/channels/${query.id}`,
+    () => query.id && `/api/listchannels/${query.id}`,
     fetcher
   );
 

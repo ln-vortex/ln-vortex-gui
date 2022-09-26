@@ -12,10 +12,13 @@ export default function Index({ coordinatorName }) {
     fetcher
   );
   const { data: channelData, error: channelError } = useSWR(
-    '/api/channels',
+    '/api/listchannels',
     fetcher
   );
-  const { data: utxoList, error: utxoError } = useSWR('/api/utxos', fetcher);
+  const { data: utxoList, error: utxoError } = useSWR(
+    '/api/listutxos',
+    fetcher
+  );
   const [cancelCoinsError, setCancelCoinsError] = useState('');
   const [cancelCoinsLoading, setCancelCoinsLoading] = useState(false);
   const { mutate } = useSWRConfig();

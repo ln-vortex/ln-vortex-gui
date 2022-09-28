@@ -13,9 +13,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     'api/getstatuses',
     fetcher
   );
+  const { data: infoData, error: infoError } = useSWR('api/getinfo', fetcher);
 
-  if (statusError) return <div>Failed to load coordinators</div>;
-  if (!statusData) return <div>Loading coordinators...</div>;
+  if (statusError || infoError) return <div>Failed to load coordinators</div>;
+  if (!statusData || !infoData) return <div>Loading coordinators...</div>;
 
   const filteredStatusData = statusData.filter(
     (coordinator) => coordinator[1].status !== 'NoDetails'
@@ -41,6 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         coordinatorName={coordinatorName}
         coordinator={filteredStatusData[coordinatorIndex][1]}
         statusData={filteredStatusData}
+        network={infoData.network}
         {...pageProps}
       />
     </Layout>

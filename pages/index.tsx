@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { fetcher } from '../utils/convertor';
 import SupportedActionButtons from '../components/SupportedActionButtons';
 
-export default function Index({ coordinatorName }) {
+export default function Index({ coordinatorName, network }) {
   const { data: statusData, error: statusError } = useSWR(
     `/api/getstatus?coordinator=${coordinatorName}`,
     fetcher
@@ -53,8 +53,6 @@ export default function Index({ coordinatorName }) {
   if (!statusData || !channelData || !utxoList || cancelCoinsLoading)
     return <div>Loading...</div>;
 
-  console.log(statusData);
-
   return (
     <>
       <h2>Coordinator Status</h2>
@@ -92,7 +90,7 @@ export default function Index({ coordinatorName }) {
               <ul className="scrollable">
                 {channelData.map((c, i) => (
                   <>
-                    <Channel key={i} channel={c} />
+                    <Channel key={i} channel={c} network={network} />
                   </>
                 ))}
               </ul>

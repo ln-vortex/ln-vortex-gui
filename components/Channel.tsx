@@ -1,6 +1,4 @@
-import Link from 'next/link';
-
-export default function Channel({ channel }) {
+export default function Channel({ channel, network }) {
   const channelState: string =
     channel.shortChannelId === '0x0x0'
       ? 'Pending'
@@ -9,6 +7,18 @@ export default function Channel({ channel }) {
       : 'Inactive';
 
   const channelStateClass = channelState.toLowerCase();
+  const getNetworkString = () => {
+    let str = network.toLowerCase();
+    if (str === 'testnet3') str = str.slice(0, -1);
+    return str;
+  };
+  const networkString = getNetworkString();
+  const getMempoolLink = () => {
+    let link = 'https://mempool.space/';
+    if (networkString !== 'mainnet') link = link + networkString + '/';
+    return `${link}lightning/channel/${channel.channelId}`;
+  };
+  const mempoolLink = getMempoolLink();
 
   return (
     <li>
@@ -25,9 +35,11 @@ export default function Channel({ channel }) {
         <div className="bold-text">Channel ID</div>
         <div>{channel.shortChannelId}</div>
       </div>
-      <Link href="/channel/[id]" as={`/channel/${channel.shortChannelId}`}>
-        <a>Details</a>
-      </Link>
+      {network !== 'regtest' && (
+        <a target="_blank" href={mempoolLink} rel="noopener noreferrer">
+          Details
+        </a>
+      )}
     </li>
   );
 }

@@ -31,4 +31,11 @@ Run the app in development mode:
 yarn dev
 ```
 
+Or run an optimized production build:
+
+```
+yarn build
+yarn start
+```
+
 Open http://localhost:3000/ to see the app.

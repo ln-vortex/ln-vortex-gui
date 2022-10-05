@@ -11,6 +11,7 @@ import {
 import Unsupported from '../components/Unsupported';
 import { fetcher } from '../utils/convertor';
 import InputType from '../components/InputType';
+import FeeExplainer from '../components/FeeExplainer';
 
 const transactionType = 'ChannelOpen';
 
@@ -143,15 +144,11 @@ export default function CreateChannel({ coordinatorName, coordinator }) {
         handleOnChange={handleOnChange}
       />
       <br />
-      <div>
-        {(
-          statusData.round.amount + statusData.round.coordinatorFee
-        ).toLocaleString()}{' '}
-        sats required for Vortex channel (
-        {statusData.round.amount.toLocaleString()} sat channel +{' '}
-        {statusData.round.coordinatorFee.toLocaleString()} sat fee)
-      </div>
-      <br />
+      <FeeExplainer
+        transactionType="vortex channel open"
+        statusData={statusData}
+        zeroFees={zeroFees()}
+      />
       <SatsSelected
         satsSelected={satsSelected}
         enabled={createChannelEnabled}

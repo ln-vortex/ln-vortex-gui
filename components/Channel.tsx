@@ -1,3 +1,5 @@
+import Vortex from '../assets/vortex.svg';
+
 export default function Channel({ channel, network }) {
   const channelState: string =
     channel.shortChannelId === '0x0x0'
@@ -24,7 +26,12 @@ export default function Channel({ channel, network }) {
     <li>
       <br />
       <div id="listitem-title">
-        <span style={{ float: 'left' }}>{channel.alias}</span>
+        <span style={{ float: 'left' }}>
+          {channel.anonSet > 1 && (
+            <Vortex width="28" height="28" viewBox="0 0 21 25" />
+          )}
+          <span style={{ position: 'absolute' }}>{channel.alias}</span>
+        </span>
         <span className={channelStateClass} style={{ float: 'right' }}>
           {channelState}
         </span>

@@ -198,6 +198,7 @@ button[disabled] {
 #listitem-title span {
   background: #13132f;
   padding: 0 10px;
+  position: relative;
 }
 
 #listitem-title span.inactive {

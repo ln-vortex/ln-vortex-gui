@@ -11,6 +11,7 @@ import {
 } from '../utils/validator';
 import Unsupported from '../components/Unsupported';
 import InputType from '../components/InputType';
+import FeeExplainer from '../components/FeeExplainer';
 
 const transactionType = 'OnChain';
 
@@ -142,14 +143,11 @@ export default function CollaborativeTransaction({
         handleOnChange={handleOnChange}
       />
       <br />
-      <div>
-        {(
-          statusData.round.amount + statusData.round.coordinatorFee
-        ).toLocaleString()}{' '}
-        sats required for collaborative transaction (
-        {statusData.round.amount.toLocaleString()} sat transaction +{' '}
-        {statusData.round.coordinatorFee.toLocaleString()} sat fee)
-      </div>
+      <FeeExplainer
+        transactionType="collaborative transaction"
+        statusData={statusData}
+        zeroFees={zeroFees()}
+      />
       <SatsSelected
         satsSelected={satsSelected}
         enabled={queueTransactionEnabled}

@@ -1,4 +1,5 @@
 import Vortex from '../assets/vortex.svg';
+import { getMempoolLink, getNetworkString } from '../utils/convertor';
 
 export default function Channel({ channel, network }) {
   const channelState: string =
@@ -9,18 +10,11 @@ export default function Channel({ channel, network }) {
       : 'Inactive';
 
   const channelStateClass = channelState.toLowerCase();
-  const getNetworkString = () => {
-    let str = network.toLowerCase();
-    if (str === 'testnet3') str = str.slice(0, -1);
-    return str;
-  };
-  const networkString = getNetworkString();
-  const getMempoolLink = () => {
-    let link = 'https://mempool.space/';
-    if (networkString !== 'mainnet') link = link + networkString + '/';
-    return `${link}lightning/channel/${channel.channelId}`;
-  };
-  const mempoolLink = getMempoolLink();
+  const networkString = getNetworkString(network);
+  const mempoolLink = getMempoolLink(
+    networkString,
+    `lightning/channel/${channel.channelId}`
+  );
 
   return (
     <li>

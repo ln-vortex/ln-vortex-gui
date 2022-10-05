@@ -1,3 +1,5 @@
+import { truncate } from '../utils/convertor';
+
 export default function UTXOTable({
   utxoList,
   checkedState = [],
@@ -5,9 +7,6 @@ export default function UTXOTable({
   handleOnChange = (index: number) => {},
   selectable = true,
 }) {
-  const truncate = (input) =>
-    input.length > 20 ? `${input.substring(0, 20)}...` : input;
-
   return (
     <table className="utxo-table">
       <thead>

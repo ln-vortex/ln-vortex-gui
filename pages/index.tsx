@@ -5,6 +5,7 @@ import InputsScheduled from '../components/InputsScheduled';
 import { useState } from 'react';
 import { fetcher } from '../utils/convertor';
 import SupportedActionButtons from '../components/SupportedActionButtons';
+import Transaction from '../components/Transaction';
 
 export default function Index({ coordinatorName, network }) {
   const { data: statusData, error: statusError } = useSWR(
@@ -17,6 +18,10 @@ export default function Index({ coordinatorName, network }) {
   );
   const { data: utxoList, error: utxoError } = useSWR(
     '/api/listutxos',
+    fetcher
+  );
+  const { data: transactionData, error: transactionError } = useSWR(
+    '/api/listtransactions',
     fetcher
   );
   const [cancelCoinsError, setCancelCoinsError] = useState('');
@@ -48,9 +53,15 @@ export default function Index({ coordinatorName, network }) {
     setCancelCoinsLoading(false);
   };
 
-  if (statusError || channelError || utxoError)
+  if (statusError || channelError || utxoError || transactionError)
     return <div>Failed to load</div>;
-  if (!statusData || !channelData || !utxoList || cancelCoinsLoading)
+  if (
+    !statusData ||
+    !channelData ||
+    !utxoList ||
+    !transactionData ||
+    cancelCoinsLoading
+  )
     return <div>Loading...</div>;
 
   return (
@@ -91,6 +102,18 @@ export default function Index({ coordinatorName, network }) {
                 {channelData.map((c, i) => (
                   <>
                     <Channel key={i} channel={c} network={network} />
+                  </>
+                ))}
+              </ul>
+            </>
+          )}
+          {transactionData.length > 0 && (
+            <>
+              <h2>Transactions</h2>
+              <ul className="scrollable">
+                {transactionData.map((t, i) => (
+                  <>
+                    <Transaction key={i} transaction={t} network={network} />
                   </>
                 ))}
               </ul>

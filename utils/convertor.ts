@@ -22,3 +22,8 @@ export function scriptTypeToString(scriptType: string): string {
 }
 
 export const fetcher = (url) => fetch(url).then((res) => res.json());
+
+export const truncate = (input) =>
+  input.length > 16
+    ? `${input.substring(0, 8)}...${input.substring(input.length - 8)}`
+    : input;

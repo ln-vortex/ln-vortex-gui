@@ -23,6 +23,14 @@ Install [node version 18.x](https://nodejs.org/en/about/releases/).
 
 Copy the `.env.sample` file to `.env.local` and update the values.
 
+### Install
+
+Install all the dependencies:
+
+```
+yarn install
+```
+
 ### Run
 
 Run the app in development mode:
